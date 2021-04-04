@@ -6,6 +6,7 @@ import { faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import HomeScreen from "./components/screens/HomeScreen";
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <h1>Welcome home boi</h1>
+          <HomeScreen />
         </Container>
       </main>
       <Footer />
