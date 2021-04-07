@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../Rating";
 import products from "../../products";
+import axios from "axios";
 
 const ProductScreen = ({ match }) => {
-  {
-    console.log("matching - - ", match.params.id);
-  }
-  const product = products.find((product) => product._id == match.params.id);
-  {
-    console.log("after matching - - > ", product);
-  }
+  // const product = products.find((product) => product._id == match.params.id);
+  const [product, setproduct] = useState({});
+  useEffect(() => {
+    const getProduct = async () => {
+      const { data } = await axios.get(
+        `http://localhost:4500/api/products/${match.params.id}`
+      );
+      setproduct(data);
+    };
+    getProduct();
+  }, []);
+
   return (
     <div>
       <Link className='btn btn-light my-3' to='/'>
@@ -46,7 +52,7 @@ const ProductScreen = ({ match }) => {
               <Row>
                 <Col>Price:</Col>
                 <Col>
-                  <stron>${product.price}</stron>
+                  <strong>${product.price}</strong>
                 </Col>
               </Row>
             </ListGroup.Item>
