@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
-import Rating from "../Rating";
-import products from "../../products";
-import axios from "axios";
+import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+
+import { Link } from 'react-router-dom';
+import Rating from '../Rating';
+import axios from 'axios';
+import products from '../../products';
 
 const ProductScreen = ({ match }) => {
   // const product = products.find((product) => product._id == match.params.id);
@@ -11,7 +12,7 @@ const ProductScreen = ({ match }) => {
   useEffect(() => {
     const getProduct = async () => {
       const { data } = await axios.get(
-        `http://localhost:4500/api/products/${match.params.id}`
+        `http://localhost:5000/api/products/${match.params.id}`,
       );
       setproduct(data);
     };
@@ -63,10 +64,10 @@ const ProductScreen = ({ match }) => {
                 <Col>
                   <span
                     style={{
-                      color: product.countInStock == 0 ? "red" : "",
+                      color: product.countInStock == 0 ? 'red' : '',
                     }}
                   >
-                    {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                    {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                   </span>
                 </Col>
               </Row>
