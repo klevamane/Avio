@@ -1,9 +1,11 @@
-import { Col, Row } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Loader from '../loader';
+import Message from '../message';
 import Product from '../../components/Product';
-import { listProducts } from '../../actions/product';
+import { listProducts as listProductsAction } from '../../actions/product';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -13,25 +15,26 @@ const HomeScreen = () => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(listProductsAction());
   }, [dispatch]);
 
   return (
     <>
       <h3>Latest products</h3>
-      <Row>
-        {loading ? (
-          <h2>Loading.....</h2>
-        ) : error ? (
-          <h2>{error}</h2>
-        ) : (
-          products.map((product) => (
+
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => (
             <Col key={product._id} sm={12} md={6} lg={4} xlg={3}>
               <Product product={product} />
             </Col>
-          ))
-        )}
-      </Row>
+          ))}
+        </Row>
+      )}
     </>
   );
 };
