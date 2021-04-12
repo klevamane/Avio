@@ -1,5 +1,5 @@
-import { Alert, Col, Row } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../loader';

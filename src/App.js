@@ -1,21 +1,22 @@
-import logo from "./logo.svg";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import {
-  faUser,
   faShoppingCart,
   faStar,
   faStarHalf,
   faStarHalfAlt,
-} from "@fortawesome/free-solid-svg-icons";
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import HomeScreen from "./components/screens/HomeScreen";
-import ProductScreen from "./components/screens/ProductScreen";
+import CartScreen from './components/screens/cart.screen';
+import { Container } from 'react-bootstrap';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import HomeScreen from './components/screens/HomeScreen';
+import ProductScreen from './components/screens/ProductScreen';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import logo from './logo.svg';
 
 const App = () => {
   return (
@@ -23,8 +24,10 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path={"/"} component={HomeScreen} exact />
-          <Route path={"/product/:id"} component={ProductScreen} />
+          <Route path={'/'} component={HomeScreen} exact />
+          <Route path={'/product/:id'} component={ProductScreen} />
+          {/* make the id optional */}
+          <Route path={'/cart/:id?'} component={CartScreen} />
         </Container>
       </main>
       <Footer />
@@ -39,6 +42,6 @@ library.add(
   faShoppingCart,
   faStarHalf,
   faStar,
-  faStarHalfAlt
+  faStarHalfAlt,
 );
 export default App;
