@@ -1,4 +1,5 @@
-import { CART_ADD_ITEM } from '../constants/cart.constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cart.constants';
+
 import axios from 'axios';
 
 export const addTocCart = (id, qty) => async (dispatch, getState) => {
@@ -20,5 +21,14 @@ export const addTocCart = (id, qty) => async (dispatch, getState) => {
   // use JSON.stringify because we can only
   // save string in localstorge. User JSON.parse to
   // reverse the operation to json
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: id,
+  });
+
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };

@@ -8,11 +8,11 @@ import {
   Row,
 } from 'react-bootstrap';
 import React, { useEffect } from 'react';
+import { addTocCart, removeFromCart } from '../../actions/cart.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import Message from '../message';
-import { addTocCart } from '../../actions/cart.actions';
 
 const CartScreen = ({ history, location, match }) => {
   const productId = match.params.id;
@@ -33,10 +33,16 @@ const CartScreen = ({ history, location, match }) => {
   }, [dispatch, productId, qty]);
 
   const removeFromCartHandler = (id) => {
-    console.log('removed');
+    dispatch(removeFromCart(id));
   };
 
-  console.log(location.search);
+  const checkoutHandler = () => {
+    //   if the user isn't logged In, the user will
+    //   be redirected to login, but if the user
+    //   is logged in, the user will be redirected to
+    //   shipping
+    history.push('/login?redirect=shipping');
+  };
   return (
     <Row>
       <Col md={8}>
@@ -120,6 +126,16 @@ const CartScreen = ({ history, location, match }) => {
                   0,
                 )
                 .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type='button'
+                className='btn-block'
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed to checkout
+              </Button>
             </ListGroup.Item>
           </ListGroup>
         </Card>
