@@ -2,12 +2,13 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
-} from '../constants/user.constants';
+} from '../constants/auth.constants';
 
 import axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
   try {
+    console.log('got here');
     dispatch({ type: USER_LOGIN_REQUEST });
     const config = {
       headers: {
@@ -15,7 +16,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      '/api/auth/login',
+      'http://localhost:5000/api/auth/login',
       { email, password },
       config,
     );

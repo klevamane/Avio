@@ -4,6 +4,7 @@ import {
   faStar,
   faStarHalf,
   faStarHalfAlt,
+  faTrash,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,6 +17,7 @@ import ProductScreen from './components/screens/ProductScreen';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import loginScreen from './components/screens/login.screen';
 import logo from './logo.svg';
 
 const App = () => {
@@ -25,6 +27,7 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Route path={'/'} component={HomeScreen} exact />
+          <Route path={'/auth/login'} component={loginScreen} exact />
           <Route path={'/product/:id'} component={ProductScreen} />
           {/* make the id optional */}
           <Route path={'/cart/:id?'} component={CartScreen} />
@@ -43,5 +46,6 @@ library.add(
   faStarHalf,
   faStar,
   faStarHalfAlt,
+  faTrash,
 );
 export default App;

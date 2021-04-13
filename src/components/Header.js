@@ -1,7 +1,8 @@
-import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { LinkContainer } from "react-router-bootstrap";
+import { Container, Nav, Navbar } from 'react-bootstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { LinkContainer } from 'react-router-bootstrap';
+import React from 'react';
 
 const Header = () => {
   return (
@@ -19,7 +20,7 @@ const Header = () => {
                   Cart <FontAwesomeIcon icon='shopping-cart' />
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/login'>
+              <LinkContainer to='/auth/login'>
                 <Nav.Link>
                   SignIn <FontAwesomeIcon icon='user' />
                 </Nav.Link>

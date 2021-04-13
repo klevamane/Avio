@@ -3,14 +3,14 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
-} from '../constants/user.constants';
+} from '../constants/auth.constants';
 
-export const userLoginReducer = (state = {}, action) => {
+export const authLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { ...state, loading: true, products: [] };
+      return { ...state, loading: true, loginUserInfo: {} };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, userInfo: action.payload };
+      return { ...state, loading: false, loginUserInfo: action.payload };
 
     case USER_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };
