@@ -12,7 +12,7 @@ const ProductScreen = ({ history, match }) => {
   const { loading, error, product } = productDetails;
 
   const dispatch = useDispatch();
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     dispatch(getProductDetails(match.params.id));

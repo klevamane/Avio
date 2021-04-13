@@ -6,6 +6,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       const item = action.payload;
       // product is going to be the id
       // check if item already exists in cart
+      console.log('REDUCER ITEM ', item);
       const itemAlreadyExists = state.cartItems.find(
         (x) => x.product === item.product,
       );
