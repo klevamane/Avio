@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { FormContainer } from '../Form.container';
 import { Link } from 'react-router-dom';
-import Loader from '../loader';
 import Message from '../message';
-import { USER_LOGIN_REQUEST } from '../../constants/auth.constants';
-import { authLoginReducer } from '../../reducers/auth.reducers';
 import { login } from '../../actions/auth.actions';
 
 const LoginScreen = ({ history, location }) => {
@@ -15,13 +12,17 @@ const LoginScreen = ({ history, location }) => {
   const [password, setPassword] = useState('');
 
   const authLoginInfo = useSelector((state) => state.authLoginInfo);
-
-  console.log('CH CHA ', authLoginInfo);
-  const { error, loading, loginUserInfo } = authLoginInfo;
+  const { error, loading, loggedInUserInfo } = authLoginInfo;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loggedInUserInfo && Object.entries(loggedInUserInfo).length) {
+      history.push(redirect);
+    }
+  }, [history, loggedInUserInfo, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();

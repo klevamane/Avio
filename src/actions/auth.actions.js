@@ -2,13 +2,13 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
 } from '../constants/auth.constants';
 
 import axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
   try {
-    console.log('got here');
     dispatch({ type: USER_LOGIN_REQUEST });
     const config = {
       headers: {
@@ -23,7 +23,7 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem('loggedInUserInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -33,4 +33,9 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+export const logout = () => async (dispatch) => {
+  localStorage.removeItem('loggedInUserInfo');
+  dispatch({ type: USER_LOGOUT });
 };

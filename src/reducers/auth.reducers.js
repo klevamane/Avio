@@ -8,9 +8,9 @@ import {
 export const authLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { ...state, loading: true, loginUserInfo: {} };
+      return { ...state, loading: true, loggedInUserInfo: {} };
     case USER_LOGIN_SUCCESS:
-      return { ...state, loading: false, loginUserInfo: action.payload };
+      return { ...state, loading: false, loggedInUserInfo: action.payload };
 
     case USER_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };
