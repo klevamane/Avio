@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { authLoginReducer, authSignupReducer } from './reducers/auth.reducers';
 import { productDetailsReducer, productListReducer } from './reducers/product';
 
-import { authLoginReducer } from './reducers/auth.reducers';
 import { cartReducer } from './reducers/cart.reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   authLoginInfo: authLoginReducer,
+  authSignupInfo: authSignupReducer,
 });
 const middleware = [thunkMiddleware];
 
