@@ -24,7 +24,7 @@ const SignupScreen = ({ history, location }) => {
   useEffect(() => {
     // if there is currently a logged in user, redirect to index page
     // this will prevent an already logged in user from accessing this screen/page
-    if (loggedInUserInfo && Object.entries(loggedInUserInfo).length) {
+    if (loggedInUserInfo && Object.entries(loggedInUserInfo).length > 0) {
       history.push(redirect);
     }
   }, [history, loggedInUserInfo, redirect]);
@@ -90,7 +90,7 @@ const SignupScreen = ({ history, location }) => {
               ></Form.Control>
             </Form.Group>
             <Button type='submit' variant='primary'>
-              SignIn
+              Sign up
             </Button>
             <Row className='py-3'>
               <Col>

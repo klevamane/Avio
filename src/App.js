@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/screens/HomeScreen';
 import ProductScreen from './components/screens/ProductScreen';
+import ProfileScreen from './components/screens/profile.screen';
 import SignupScreen from './components/screens/signup.screen';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -31,6 +32,7 @@ const App = () => {
           <Route path={'/auth/login'} component={loginScreen} exact />
           <Route path={'/auth/signup'} component={SignupScreen} exact />
           <Route path={'/product/:id'} component={ProductScreen} />
+          <Route path={'/user/profile'} component={ProfileScreen} />
           {/* make the id optional */}
           <Route path={'/cart/:id?'} component={CartScreen} />
         </Container>

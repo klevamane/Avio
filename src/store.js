@@ -1,6 +1,10 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { authLoginReducer, authSignupReducer } from './reducers/auth.reducers';
 import { productDetailsReducer, productListReducer } from './reducers/product';
+import {
+  userDetailsReducer,
+  userUpdateProfileReducer,
+} from './reducers/user.reducers';
 
 import { cartReducer } from './reducers/cart.reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -12,6 +16,8 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   authLoginInfo: authLoginReducer,
   authSignupInfo: authSignupReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 const middleware = [thunkMiddleware];
 
