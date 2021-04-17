@@ -19,7 +19,7 @@ const ProfileScreen = ({ history, location }) => {
   const { user } = userDetails;
 
   const authLoginInfo = useSelector((state) => state.authLoginInfo);
-  const { error, loading, loggedInUserInfo } = authLoginInfo;
+  let { error, loading, loggedInUserInfo } = authLoginInfo;
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
@@ -54,6 +54,7 @@ const ProfileScreen = ({ history, location }) => {
       );
     }
   };
+
   return (
     <>
       {success && <Message>Profile update</Message>}
