@@ -13,6 +13,7 @@ import { Container } from 'react-bootstrap';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/screens/HomeScreen';
+import PaymentScreen from './components/screens/payment.screen';
 import ProductScreen from './components/screens/ProductScreen';
 import ProfileScreen from './components/screens/profile.screen';
 import ShippingScreen from './components/screens/shipping.screen';
@@ -37,6 +38,7 @@ const App = () => {
           {/* make the id optional */}
           <Route path={'/cart/:id?'} component={CartScreen} exact />
           <Route path={'/shipping'} component={ShippingScreen} exact />
+          <Route path={'/payment'} component={PaymentScreen} exact />
         </Container>
       </main>
       <Footer />
