@@ -3,15 +3,34 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FormContainer } from '../Form.container';
+import { saveShippingAddress } from '../../actions/cart.actions';
 
 const ShippingScreen = ({ history }) => {
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
+  const cart = useSelector((state) => state.cart);
+  console.log('cart__ ', cart);
+  const { shippingAddress } = cart;
+
+  const dispatch = useDispatch();
+
+  //   fill these fields with the shipping address from the local storage
+  //   initially, if the data exists in the localStorage
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const [country, setCountry] = useState(shippingAddress.country);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(
+      saveShippingAddress({
+        address,
+        city,
+        postalCode,
+        country,
+      }),
+    );
+    history.push('/payment');
+
     console.log('Submitted');
   };
   return (
@@ -25,6 +44,7 @@ const ShippingScreen = ({ history }) => {
             placeholder='Enter address'
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Form.Group controlId='city'>
@@ -34,6 +54,7 @@ const ShippingScreen = ({ history }) => {
             placeholder='Enter city'
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -44,6 +65,7 @@ const ShippingScreen = ({ history }) => {
             placeholder='Enter password'
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
 
@@ -54,10 +76,11 @@ const ShippingScreen = ({ history }) => {
             placeholder='Enter country'
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+            required
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary'>
-          Save
+          Continue
         </Button>
       </Form>
     </FormContainer>

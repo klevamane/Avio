@@ -29,10 +29,17 @@ const authLoginInfoFromStorage = localStorage.getItem('loggedInUserInfo')
   ? { loggedInUserInfo: JSON.parse(localStorage.getItem('loggedInUserInfo')) }
   : {};
 
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? { shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')) }
+  : {};
 const initialState = {
-  cart: { cartItems: cartItemsFromLocalStorage },
+  cart: {
+    cartItems: cartItemsFromLocalStorage,
+    shippingAddress: shippingAddressFromStorage,
+  },
   authLoginInfo: authLoginInfoFromStorage,
 };
+
 const store = createStore(
   rootReducer,
   initialState,
