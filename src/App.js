@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/screens/HomeScreen';
 import PaymentScreen from './components/screens/payment.screen';
+import PlaceOrderScreen from './components/screens/placeOrder.screen';
 import ProductScreen from './components/screens/ProductScreen';
 import ProfileScreen from './components/screens/profile.screen';
 import ShippingScreen from './components/screens/shipping.screen';
@@ -39,6 +40,7 @@ const App = () => {
           <Route path={'/cart/:id?'} component={CartScreen} exact />
           <Route path={'/shipping'} component={ShippingScreen} exact />
           <Route path={'/payment'} component={PaymentScreen} exact />
+          <Route path={'/placeorder'} component={PlaceOrderScreen} exact />
         </Container>
       </main>
       <Footer />

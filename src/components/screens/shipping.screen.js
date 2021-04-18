@@ -8,7 +8,6 @@ import { saveShippingAddress } from '../../actions/cart.actions';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
-  console.log('cart__ ', cart);
   const { shippingAddress } = cart;
 
   const dispatch = useDispatch();
