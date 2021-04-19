@@ -57,6 +57,11 @@ const OrderScreen = ({ match }) => {
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </p>
+              {order.isDelivered ? (
+                <Message variant='success'>Delivered</Message>
+              ) : (
+                <Message variant='danger'>Delivery is pending</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -65,6 +70,11 @@ const OrderScreen = ({ match }) => {
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
+              {order.isPaid ? (
+                <Message variant='success'>Payment completed</Message>
+              ) : (
+                <Message variant='danger'>Payment is pending</Message>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
