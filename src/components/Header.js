@@ -1,10 +1,10 @@
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import React from 'react';
 import { logout } from '../actions/auth.actions';
 
 const Header = () => {

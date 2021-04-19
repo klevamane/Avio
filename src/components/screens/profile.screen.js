@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { getUserDetails, updateUserProfile } from '../../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
 import Message from '../message';
 
 const ProfileScreen = ({ history, location }) => {

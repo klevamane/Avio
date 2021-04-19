@@ -13,6 +13,7 @@ import { Container } from 'react-bootstrap';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/screens/HomeScreen';
+import OrderScreen from './components/screens/order.screen';
 import PaymentScreen from './components/screens/payment.screen';
 import PlaceOrderScreen from './components/screens/placeOrder.screen';
 import ProductScreen from './components/screens/ProductScreen';
@@ -41,6 +42,7 @@ const App = () => {
           <Route path={'/shipping'} component={ShippingScreen} exact />
           <Route path={'/payment'} component={PaymentScreen} exact />
           <Route path={'/placeorder'} component={PlaceOrderScreen} exact />
+          <Route path={'/order/:id'} component={OrderScreen} exact />
         </Container>
       </main>
       <Footer />

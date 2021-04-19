@@ -1,5 +1,5 @@
-import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CheckoutSteps from '../checkoutSteps';
