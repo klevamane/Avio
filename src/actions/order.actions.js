@@ -5,6 +5,9 @@ import {
   ORDER_GET_DETAILS_FAIL,
   ORDER_GET_DETAILS_REQUEST,
   ORDER_GET_DETAILS_SUCCESS,
+  ORDER_PAY_FAIL,
+  ORDER_PAY_REQUEST,
+  ORDER_PAY_SUCCESS,
 } from '../constants/order.constant';
 
 import axios from 'axios';
@@ -41,7 +44,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
 };
 
 export const getOrderById = (id) => async (dispatch, getState) => {
-  console.log('DATA * * * * * * * * * * -* ');
   const {
     authLoginInfo: { loggedInUserInfo },
   } = getState();
@@ -62,6 +64,40 @@ export const getOrderById = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_GET_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const payOrder = (orderId, paymentResult) => async (
+  dispatch,
+  getState,
+) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+  try {
+    dispatch({ type: ORDER_PAY_REQUEST });
+    const { data } = await axios.post(
+      `http://localhost:5000/api/orders/${orderId}/pay`,
+      paymentResult,
+      config,
+    );
+
+    dispatch({ type: ORDER_PAY_SUCCESS, payload: data.order });
+  } catch (error) {
+    dispatch({
+      type: ORDER_PAY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
