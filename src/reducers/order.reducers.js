@@ -66,12 +66,10 @@ export const orderPayReducer = (
   switch (action.type) {
     case ORDER_PAY_REQUEST:
       return {
-        ...state,
         loading: true,
       };
     case ORDER_PAY_SUCCESS:
       return {
-        ...state,
         loading: false,
         success: true,
       };
@@ -80,7 +78,7 @@ export const orderPayReducer = (
       return {};
 
     case ORDER_PAY_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { loading: false, error: action.payload };
 
     default:
       return state;

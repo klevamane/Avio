@@ -1,10 +1,14 @@
 import { Card, Col, Image, ListGroup, Row, Spinner } from 'react-bootstrap';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getOrderById, payOrder } from '../../actions/order.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import Loader from '../loader';
 import Message from '../message';
-import { getOrderById } from '../../actions/order.actions';
+import { ORDER_PAY_RESET } from '../../constants/order.constant';
+import { PayPalButton } from 'react-paypal-button-v2';
+import axios from 'axios';
 
 const OrderScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -12,6 +16,10 @@ const OrderScreen = ({ match }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order = {}, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  // get success as successPay and loading as well
+  const { success: successPay, loading: loadingPay } = orderPay;
 
   if (!loading) {
     // Calculate the prices
@@ -24,11 +32,48 @@ const OrderScreen = ({ match }) => {
     );
   }
 
-  useEffect(() => {
-    dispatch(getOrderById(orderId));
-  }, [dispatch, orderId]);
+  const [sdkReady, setSdkReady] = useState(false);
 
-  // return <div></div>;
+  useEffect(() => {
+    // if (!userInfo) {
+    //   history.push('/login')
+    // }
+
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get(
+        'http://localhost:5000/api/config/paypal',
+      );
+      // create <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
+      // using javascript, this ensures that this script wont be viewable
+      // via the browser inspect
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    if (!order || successPay || order._id !== orderId) {
+      dispatch({ type: ORDER_PAY_RESET });
+      dispatch(getOrderById(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [dispatch, orderId, successPay, order]);
+
+  const successPaymentHandler = (paymentResult) => {
+    // The paymentResult is an object that comes from
+    // paypal upon successful transaction
+    console.log(paymentResult);
+    dispatch(payOrder(orderId, paymentResult));
+  };
   return loading ? (
     <Spinner />
   ) : error ? (
@@ -73,7 +118,9 @@ const OrderScreen = ({ match }) => {
               {order.isPaid ? (
                 <Message variant='success'>Payment completed</Message>
               ) : (
-                <Message variant='danger'>Payment is pending</Message>
+                <Message variant='danger'>
+                  Payment is pending {order.isPaid}
+                </Message>
               )}
             </ListGroup.Item>
 
@@ -143,11 +190,24 @@ const OrderScreen = ({ match }) => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {error && (
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}{' '}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <PayPalButton
+                      amount={order.totalPrice}
+                      onSuccess={successPaymentHandler}
+                    />
+                  )}
+                </ListGroup.Item>
+              )}
+              {/* {error && (
                 <ListGroup.Item>
                   <Message variant='danger'>{error}</Message>
                 </ListGroup.Item>
-              )}
+              )} */}
             </ListGroup>
           </Card>
         </Col>

@@ -43,7 +43,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 };
 
-export const getOrderById = (id) => async (dispatch, getState) => {
+export const getOrderById = (orderId) => async (dispatch, getState) => {
   const {
     authLoginInfo: { loggedInUserInfo },
   } = getState();
@@ -56,7 +56,7 @@ export const getOrderById = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_GET_DETAILS_REQUEST });
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/${id}`,
+      `http://localhost:5000/api/orders/${orderId}`,
       config,
     );
 
@@ -88,7 +88,7 @@ export const payOrder = (orderId, paymentResult) => async (
   };
   try {
     dispatch({ type: ORDER_PAY_REQUEST });
-    const { data } = await axios.post(
+    const { data } = await axios.put(
       `http://localhost:5000/api/orders/${orderId}/pay`,
       paymentResult,
       config,

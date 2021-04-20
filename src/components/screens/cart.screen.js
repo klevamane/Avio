@@ -41,7 +41,7 @@ const CartScreen = ({ history, location, match }) => {
     //   be redirected to login, but if the user
     //   is logged in, the user will be redirected to
     //   shipping
-    history.push('/login?redirect=shipping');
+    history.push('/auth/login?redirect=/shipping');
   };
   return (
     <Row>

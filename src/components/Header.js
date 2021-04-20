@@ -38,7 +38,7 @@ const Header = () => {
                   id='basic-nav-dropdown'
                 >
                   <NavDropdown.Item>
-                    <Link to={'/profile'}>Profile</Link>
+                    <Link to={'/user/profile'}>Profile</Link>
                   </NavDropdown.Item>
 
                   <NavDropdown.Divider />
