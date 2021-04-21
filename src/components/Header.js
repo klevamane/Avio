@@ -37,9 +37,12 @@ const Header = () => {
                   title={loggedInUserInfo.user.name}
                   id='basic-nav-dropdown'
                 >
-                  <NavDropdown.Item>
+                  <LinkContainer to={'/user/profile'}>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  {/* <NavDropdown.Item>
                     <Link to={'/user/profile'}>Profile</Link>
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
 
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={handleLogout}>
@@ -52,6 +55,23 @@ const Header = () => {
                     SignIn <FontAwesomeIcon icon='user' />
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {loggedInUserInfo && loggedInUserInfo.user.isAdmin && (
+                <NavDropdown title='Admin' id='admin-menu'>
+                  <LinkContainer to={'/admin/users'}>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+                  <LinkContainer to={'/admin/products'}>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+
+                  <NavDropdown.Divider />
+                  <LinkContainer to={'/admin/orders'}>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>
