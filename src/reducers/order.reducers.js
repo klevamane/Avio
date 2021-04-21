@@ -12,6 +12,7 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_RESET,
   ORDER_PAY_SUCCESS,
+  ORDER_RESET_LIST,
 } from '../constants/order.constant';
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -102,6 +103,11 @@ export const orderGetSingleUserOrdersReducer = (
         loading: false,
         success: true,
         orders: action.payload,
+      };
+
+    case ORDER_RESET_LIST:
+      return {
+        orders: [],
       };
 
     case ORDER_LIST_SINGLE_USER_ORDERS_FAIL:

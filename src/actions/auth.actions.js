@@ -8,6 +8,8 @@ import {
   USER_SIGNUP_SUCCESS,
 } from '../constants/auth.constants';
 
+import { ORDER_RESET_LIST } from '../constants/order.constant';
+import { USER_DETAILS_RESET } from '../constants/user.constants';
 import axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
@@ -74,4 +76,6 @@ export const signup = (email, password, name) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('loggedInUserInfo');
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: ORDER_RESET_LIST });
+  dispatch({ type: USER_DETAILS_RESET });
 };

@@ -11,6 +11,7 @@ import {
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
+  ORDER_RESET_LIST,
 } from '../constants/order.constant';
 
 import axios from 'axios';
@@ -126,7 +127,7 @@ export const listSingleUserOrders = () => async (dispatch, getState) => {
       'http://localhost:5000/api/orders/user/all',
       config,
     );
-    console.log('VIEW DATA ->>> ', data);
+
     dispatch({
       type: ORDER_LIST_SINGLE_USER_ORDERS_SUCCESS,
       payload: data.orders,

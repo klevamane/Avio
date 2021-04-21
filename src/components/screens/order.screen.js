@@ -10,18 +10,21 @@ import { ORDER_PAY_RESET } from '../../constants/order.constant';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const dispatch = useDispatch();
   const orderId = match.params.id;
 
   const orderDetails = useSelector((state) => state.orderDetails);
-  const { order = {}, loading, error } = orderDetails;
+  const { order, loading, error } = orderDetails;
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
   // get success as successPay and loading as well
   const { success: successPay, loading: loadingPay } = orderPay;
 
-  if (!loading) {
+  if (!loading && order) {
     // Calculate the prices
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
@@ -35,17 +38,12 @@ const OrderScreen = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
-    // if (!userInfo) {
-    //   history.push('/login')
-    // }
+    if (!user) {
+      history.push('/login');
+    }
 
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get(
-        'http://localhost:5000/api/config/paypal',
-      );
-      // create <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
-      // using javascript, this ensures that this script wont be viewable
-      // via the browser inspect
+      const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
@@ -66,7 +64,7 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay, order]);
+  }, [order, successPay, user, orderId, history, dispatch]);
 
   const successPaymentHandler = (paymentResult) => {
     // The paymentResult is an object that comes from
