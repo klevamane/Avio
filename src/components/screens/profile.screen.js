@@ -1,15 +1,12 @@
 import { Button, Col, Form, Row, Spinner, Table } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import {
-  clearOrderList,
-  listSingleUserOrders,
-} from '../../actions/order.actions';
 import { getUserDetails, updateUserProfile } from '../../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import Loader from '../loader';
 import Message from '../message';
+import { listSingleUserOrders } from '../../actions/order.actions';
 
 const ProfileScreen = ({ history, location }) => {
   const [email, setEmail] = useState('');
@@ -44,7 +41,6 @@ const ProfileScreen = ({ history, location }) => {
       history.push('/auth/login');
     } else {
       if (!user.name) {
-        // dispatch(clearOrderList());
         dispatch(getUserDetails());
         dispatch(listSingleUserOrders());
       } else {
