@@ -7,13 +7,20 @@ import Loader from '../loader';
 import Message from '../message';
 import { usersList as usersListAction } from '../../actions/user.actions';
 
-const UsersScreen = () => {
+const UsersScreen = ({ history }) => {
   const dispatch = useDispatch();
   const usersLists = useSelector((state) => state.usersList);
   const { loading, error, users } = usersLists;
+
+  const authLoginInfo = useSelector((state) => state.authLoginInfo);
+  const { loggedInUserInfo } = authLoginInfo;
   useEffect(() => {
-    dispatch(usersListAction());
-  }, [dispatch]);
+    if (loggedInUserInfo && loggedInUserInfo.user.isAdmin) {
+      dispatch(usersListAction());
+    } else {
+      history.push('/login');
+    }
+  }, [dispatch, history, loggedInUserInfo]);
 
   const deleteHandler = (userId) => {
     console.log('Delete handler called');
