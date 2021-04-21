@@ -5,6 +5,9 @@ import {
   ORDER_GET_DETAILS_FAIL,
   ORDER_GET_DETAILS_REQUEST,
   ORDER_GET_DETAILS_SUCCESS,
+  ORDER_LIST_SINGLE_USER_ORDERS_FAIL,
+  ORDER_LIST_SINGLE_USER_ORDERS_REQUEST,
+  ORDER_LIST_SINGLE_USER_ORDERS_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
@@ -98,6 +101,39 @@ export const payOrder = (orderId, paymentResult) => async (
   } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listSingleUserOrders = () => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: ORDER_LIST_SINGLE_USER_ORDERS_REQUEST });
+    const { data } = await axios.get(
+      'http://localhost:5000/api/orders/user/all',
+      config,
+    );
+    console.log('VIEW DATA ->>> ', data);
+    dispatch({
+      type: ORDER_LIST_SINGLE_USER_ORDERS_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_SINGLE_USER_ORDERS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

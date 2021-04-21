@@ -5,6 +5,9 @@ import {
   ORDER_GET_DETAILS_FAIL,
   ORDER_GET_DETAILS_REQUEST,
   ORDER_GET_DETAILS_SUCCESS,
+  ORDER_LIST_SINGLE_USER_ORDERS_FAIL,
+  ORDER_LIST_SINGLE_USER_ORDERS_REQUEST,
+  ORDER_LIST_SINGLE_USER_ORDERS_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_RESET,
@@ -78,6 +81,30 @@ export const orderPayReducer = (
       return {};
 
     case ORDER_PAY_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
+export const orderGetSingleUserOrdersReducer = (
+  state = { orders: [] },
+  action,
+) => {
+  switch (action.type) {
+    case ORDER_LIST_SINGLE_USER_ORDERS_REQUEST:
+      return {
+        loading: true,
+      };
+    case ORDER_LIST_SINGLE_USER_ORDERS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        orders: action.payload,
+      };
+
+    case ORDER_LIST_SINGLE_USER_ORDERS_FAIL:
       return { loading: false, error: action.payload };
 
     default:
