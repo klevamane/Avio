@@ -10,6 +10,7 @@ import { productDetailsReducer, productListReducer } from './reducers/product';
 import {
   userDetailsReducer,
   userUpdateProfileReducer,
+  usersDeleteReducer,
   usersListReducer,
 } from './reducers/user.reducers';
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   orderPay: orderPayReducer,
   orderSingleUserOrders: orderGetSingleUserOrdersReducer,
   usersList: usersListReducer,
+  userDelete: usersDeleteReducer,
 });
 const middleware = [thunkMiddleware];
 
