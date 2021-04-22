@@ -20,6 +20,7 @@ import ProductScreen from './components/screens/ProductScreen';
 import ProfileScreen from './components/screens/profile.screen';
 import ShippingScreen from './components/screens/shipping.screen';
 import SignupScreen from './components/screens/signup.screen';
+import UserGetEditScreen from './components/screens/userGetEdit.screen';
 import UsersScreen from './components/screens/users.screen';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
@@ -40,6 +41,7 @@ const App = () => {
           <Route path={'/user/profile'} component={ProfileScreen} />
           {/* Admin Routes */}
           <Route path={'/admin/users'} component={UsersScreen} />
+          <Route path={'/admin/user/:id'} component={UserGetEditScreen} />
 
           {/* make the id optional */}
           <Route path={'/cart/:id?'} component={CartScreen} exact />

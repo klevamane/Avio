@@ -11,6 +11,7 @@ import {
   userDetailsReducer,
   userUpdateProfileReducer,
   usersDeleteReducer,
+  usersGetAnyReducer,
   usersListReducer,
 } from './reducers/user.reducers';
 
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   orderSingleUserOrders: orderGetSingleUserOrdersReducer,
   usersList: usersListReducer,
   userDelete: usersDeleteReducer,
+  userGetAnyUser: usersGetAnyReducer,
 });
 const middleware = [thunkMiddleware];
 

@@ -8,6 +8,9 @@ import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
+  USER_GET_ANY_DETAILS_FAIL,
+  USER_GET_ANY_DETAILS_REQUEST,
+  USER_GET_ANY_DETAILS_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
@@ -125,6 +128,36 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getAnyUser = (id) => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: USER_GET_ANY_DETAILS_REQUEST });
+    const { data } = await axios.get(
+      `http://localhost:5000/api/users/admin/single/${id}`,
+      config,
+    );
+    // no need for a payload
+    dispatch({ type: USER_GET_ANY_DETAILS_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: USER_GET_ANY_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -1,4 +1,4 @@
-import { Button, Table } from 'react-bootstrap';
+import { Button, Modal, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import {
   deleteUser,
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../loader';
 import Message from '../message';
+import { useState } from 'react';
 
 const UsersScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -29,9 +30,22 @@ const UsersScreen = ({ history }) => {
     }
   }, [dispatch, history, loggedInUserInfo, success, deleteUserLoading]);
 
+  const [show, setShow] = useState(false);
+  const [userToBeDeletedId, setUserToBeDeletedId] = useState(null);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const deleteHandler = (userId) => {
     dispatch(deleteUser(userId));
+    handleClose();
   };
+
+  const confirmDeleteHandler = (userId) => {
+    handleShow();
+    setUserToBeDeletedId(userId);
+  };
+
   return (
     <>
       <h2>Users List</h2>
@@ -62,7 +76,7 @@ const UsersScreen = ({ history }) => {
                 </td>
                 <td>{user.isAdmin ? 'Yes' : 'No'}</td>
                 <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant='light' className='btn-sm'>
                       Edit
                     </Button>
@@ -70,7 +84,7 @@ const UsersScreen = ({ history }) => {
                   <Button
                     varian='danger'
                     className='btn-sm'
-                    onClick={() => deleteHandler(user._id)}
+                    onClick={() => confirmDeleteHandler(user._id)}
                   >
                     Delete
                   </Button>
@@ -80,6 +94,23 @@ const UsersScreen = ({ history }) => {
           </tbody>
         </Table>
       )}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant='danger'
+            onClick={() => deleteHandler(userToBeDeletedId)}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
