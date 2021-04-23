@@ -13,6 +13,7 @@ import {
   usersDeleteReducer,
   usersGetAnyReducer,
   usersListReducer,
+  usersUpdateAnyReducer,
 } from './reducers/user.reducers';
 
 import { cartReducer } from './reducers/cart.reducers';
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   usersList: usersListReducer,
   userDelete: usersDeleteReducer,
   userGetAnyUser: usersGetAnyReducer,
+  updateAnyUser: usersUpdateAnyReducer,
 });
 const middleware = [thunkMiddleware];
 

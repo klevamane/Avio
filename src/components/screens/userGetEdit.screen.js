@@ -1,15 +1,19 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
+import {
+  getAnyUser,
+  updateAnyUser as updateAnyUserAction,
+} from '../../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../loader';
 import Message from '../message';
-import { getAnyUser } from '../../actions/user.actions';
+import { USER_UPDATE_ANY_DETAILS_RESET } from '../../constants/user.constants';
 
 const UserGetEditScreen = ({ history, location, match }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [isAdmin, SetisAdmin] = useState(false);
+  const [isAdmin, SetIsAdmin] = useState(false);
   const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -24,31 +28,48 @@ const UserGetEditScreen = ({ history, location, match }) => {
     user,
   } = userGetAnyUser;
 
+  const updateAnyUser = useSelector((state) => state.updateAnyUser);
+  const {
+    success: successUpdate,
+    loading: updateAnyUserLoading,
+  } = updateAnyUser;
+
   useEffect(() => {
     if (!loggedInUserInfo) {
       // redirect to login if the user is not loggedin
       history.push('/auth/login');
+    }
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_ANY_DETAILS_RESET });
+      history.push('/admin/users');
     } else {
-      if (!user.name || user._id !== match.params.id) {
-        dispatch(getAnyUser(match.params.id));
-      } else {
+      if (user.name || user._id === match.params.id) {
         setName(user.name);
         setEmail(user.email);
+        SetIsAdmin(user.isAdmin);
       }
     }
-  }, [history, loggedInUserInfo, getUserLoading, dispatch, user, match]);
+  }, [history, loggedInUserInfo, user, successUpdate, dispatch, match]);
 
+  useEffect(() => {
+    dispatch(getAnyUser(match.params.id));
+  }, []);
   const submitHandler = (e) => {
     e.preventDefault();
-
     // Dispatch update profile
-    console.log('Submitted');
+    dispatch(updateAnyUserAction(match.params.id, { name, email, isAdmin }));
   };
 
   return (
     <>
       {message ? <Message variant='danger'>{message}</Message> : ''}
+      {successUpdate && <Message>Update successful</Message>}
       {error ? <Message variant='danger'>{error}</Message> : ''}
+      {getAnyUserError ? (
+        <Message variant='danger'>{getAnyUserError}</Message>
+      ) : (
+        ''
+      )}
 
       {getUserLoading ? (
         <Loader />
@@ -81,7 +102,7 @@ const UserGetEditScreen = ({ history, location, match }) => {
                   type='checkbox'
                   label='Admin'
                   value={isAdmin}
-                  onChange={(e) => SetisAdmin(e.target.value)}
+                  onChange={(e) => SetIsAdmin(e.target.value)}
                 />
               </Form.Group>
               <Button type='submit' variant='primary'>

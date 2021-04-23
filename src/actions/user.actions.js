@@ -11,6 +11,9 @@ import {
   USER_GET_ANY_DETAILS_FAIL,
   USER_GET_ANY_DETAILS_REQUEST,
   USER_GET_ANY_DETAILS_SUCCESS,
+  USER_UPDATE_ANY_DETAILS_FAIL,
+  USER_UPDATE_ANY_DETAILS_REQUEST,
+  USER_UPDATE_ANY_DETAILS_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
@@ -158,6 +161,37 @@ export const getAnyUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_GET_ANY_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateAnyUser = (id, updateData) => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: USER_UPDATE_ANY_DETAILS_REQUEST });
+    await axios.put(
+      `http://localhost:5000/api/users/admin/update/${id}`,
+      updateData,
+      config,
+    );
+    // no need for a payload
+    dispatch({ type: USER_UPDATE_ANY_DETAILS_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_ANY_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
