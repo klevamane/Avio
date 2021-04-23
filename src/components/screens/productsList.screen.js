@@ -1,6 +1,10 @@
 import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
-import { deleteProduct, listProducts } from '../../actions/product';
+import {
+  createProduct,
+  deleteProduct,
+  listProducts,
+} from '../../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -36,12 +40,27 @@ const ProductsListScreen = ({ history }) => {
   const [show, setShow] = useState(false);
   const [productToBeDeleted, setUserToBeDeletedId] = useState(null);
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    success: successCreate,
+    error: createError,
+    loading: loadingCreate,
+    product: newProduct,
+  } = productCreate;
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const deleteHandler = (productId) => {
     dispatch(deleteProduct(productId));
     handleClose();
+  };
+
+  const createHandler = () => {
+    dispatch(createProduct());
+    if (successCreate) {
+      history.push(`/admin/product/edit/${newProduct._id}`);
+    }
   };
 
   const confirmDeleteHandler = (productId) => {
@@ -51,13 +70,16 @@ const ProductsListScreen = ({ history }) => {
 
   return (
     <>
+      {createError && <Message variant='danger'>{createError}</Message>}
       {deleteError && <Message variant='danger'>{deleteError}</Message>}
       <Row className='my-3'>
         <Col>
           <h2>Products List</h2>
         </Col>
         <Col className='text-right'>
-          <Button className=''>+Create Product</Button>
+          <Button className='' onClick={createHandler}>
+            +Create Product
+          </Button>
         </Col>
       </Row>
 

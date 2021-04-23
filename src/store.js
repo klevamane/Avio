@@ -7,6 +7,7 @@ import {
   orderPayReducer,
 } from './reducers/order.reducers';
 import {
+  productCreateReducer,
   productDeleteReducer,
   productDetailsReducer,
   productListReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
   cart: cartReducer,
   authLoginInfo: authLoginReducer,
   authSignupInfo: authSignupReducer,
