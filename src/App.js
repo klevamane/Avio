@@ -17,6 +17,7 @@ import OrderScreen from './components/screens/order.screen';
 import PaymentScreen from './components/screens/payment.screen';
 import PlaceOrderScreen from './components/screens/placeOrder.screen';
 import ProductScreen from './components/screens/ProductScreen';
+import ProductsListScreen from './components/screens/productsList.screen';
 import ProfileScreen from './components/screens/profile.screen';
 import ShippingScreen from './components/screens/shipping.screen';
 import SignupScreen from './components/screens/signup.screen';
@@ -42,6 +43,7 @@ const App = () => {
           {/* Admin Routes */}
           <Route path={'/admin/users'} component={UsersScreen} />
           <Route path={'/admin/user/:id'} component={UserGetEditScreen} />
+          <Route path={'/admin/products'} component={ProductsListScreen} />
 
           {/* make the id optional */}
           <Route path={'/cart/:id?'} component={CartScreen} exact />
