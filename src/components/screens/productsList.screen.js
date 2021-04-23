@@ -1,12 +1,12 @@
 import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
+import { deleteProduct, listProducts } from '../../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../loader';
 import Message from '../message';
-import { listProducts } from '../../actions/product';
 import { useState } from 'react';
 
 const ProductsListScreen = ({ history }) => {
@@ -18,13 +18,20 @@ const ProductsListScreen = ({ history }) => {
   const productList = useSelector((state) => state.productList);
   const { products, error, loading: productsLoading } = productList;
 
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    success: successDelete,
+    loading: deleteLoading,
+    error: deleteError,
+  } = productDelete;
+
   useEffect(() => {
     if (loggedInUserInfo && loggedInUserInfo.user.isAdmin) {
       dispatch(listProducts());
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, loggedInUserInfo]);
+  }, [dispatch, history, successDelete, loggedInUserInfo]);
 
   const [show, setShow] = useState(false);
   const [productToBeDeleted, setUserToBeDeletedId] = useState(null);
@@ -33,7 +40,7 @@ const ProductsListScreen = ({ history }) => {
   const handleShow = () => setShow(true);
 
   const deleteHandler = (productId) => {
-    console.log('Delete successfull');
+    dispatch(deleteProduct(productId));
     handleClose();
   };
 
@@ -44,6 +51,7 @@ const ProductsListScreen = ({ history }) => {
 
   return (
     <>
+      {deleteError && <Message variant='danger'>{deleteError}</Message>}
       <Row className='my-3'>
         <Col>
           <h2>Products List</h2>

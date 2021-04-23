@@ -1,4 +1,7 @@
 import {
+  PRODUCT_DELETE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
@@ -43,6 +46,37 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+  console.log('HERE');
+
+  try {
+    dispatch({ type: PRODUCT_DELETE_REQUEST });
+    await axios.delete(
+      `http://localhost:5000/api/products/admin/delete/${id}`,
+      config,
+    );
+    // no need for a payload
+    dispatch({ type: PRODUCT_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

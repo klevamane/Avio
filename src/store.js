@@ -6,7 +6,11 @@ import {
   orderGetSingleUserOrdersReducer,
   orderPayReducer,
 } from './reducers/order.reducers';
-import { productDetailsReducer, productListReducer } from './reducers/product';
+import {
+  productDeleteReducer,
+  productDetailsReducer,
+  productListReducer,
+} from './reducers/product';
 import {
   userDetailsReducer,
   userUpdateProfileReducer,
@@ -23,6 +27,7 @@ import thunkMiddleware from 'redux-thunk';
 const rootReducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
   cart: cartReducer,
   authLoginInfo: authLoginReducer,
   authSignupInfo: authSignupReducer,

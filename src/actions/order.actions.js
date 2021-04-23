@@ -11,7 +11,6 @@ import {
   ORDER_PAY_FAIL,
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
-  ORDER_RESET_LIST,
 } from '../constants/order.constant';
 
 import axios from 'axios';

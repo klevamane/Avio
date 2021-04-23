@@ -109,7 +109,6 @@ export const usersList = () => async (dispatch, getState) => {
 };
 
 export const deleteUser = (id) => async (dispatch, getState) => {
-  console.log('HAPPENING IN ACTION');
   const {
     authLoginInfo: { loggedInUserInfo },
   } = getState();
