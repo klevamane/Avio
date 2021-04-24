@@ -8,6 +8,9 @@ import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
   PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_EDIT_FAIL,
+  PRODUCT_EDIT_REQUEST,
+  PRODUCT_EDIT_SUCCESS,
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -112,9 +115,45 @@ export const createProduct = () => async (dispatch, getState) => {
     );
     // no need for a payload
     dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data.product });
+    console.log(data.product);
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const editProduct = (id, updateData) => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: PRODUCT_EDIT_REQUEST });
+    // No data is being sent because the backend
+    // automatically creates a generic product
+    // when this endpoint is hit
+    const { data } = await axios.patch(
+      `http://localhost:5000/api/products/admin/update/${id}`,
+      updateData,
+      config,
+    );
+    // no need for a payload
+    dispatch({ type: PRODUCT_EDIT_SUCCESS, payload: data.product });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_EDIT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

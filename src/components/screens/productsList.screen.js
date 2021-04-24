@@ -1,4 +1,8 @@
 import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
+import {
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_EDIT_RESET,
+} from '../../constants/product';
 import React, { useEffect } from 'react';
 import {
   createProduct,
@@ -29,14 +33,6 @@ const ProductsListScreen = ({ history }) => {
     error: deleteError,
   } = productDelete;
 
-  useEffect(() => {
-    if (loggedInUserInfo && loggedInUserInfo.user.isAdmin) {
-      dispatch(listProducts());
-    } else {
-      history.push('/login');
-    }
-  }, [dispatch, history, successDelete, loggedInUserInfo]);
-
   const [show, setShow] = useState(false);
   const [productToBeDeleted, setUserToBeDeletedId] = useState(null);
 
@@ -48,6 +44,28 @@ const ProductsListScreen = ({ history }) => {
     product: newProduct,
   } = productCreate;
 
+  useEffect(() => {
+    if (!loggedInUserInfo && !loggedInUserInfo.user.isAdmin) {
+      // dispatch(listProducts());
+      history.push('/login');
+    }
+
+    if (successCreate) {
+      history.push(`/admin/products/edit/${newProduct._id}`);
+      dispatch({ type: PRODUCT_CREATE_REQUEST });
+      console.log('successCreate b ', successCreate);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [
+    dispatch,
+    history,
+    successDelete,
+    newProduct,
+    successCreate,
+    loggedInUserInfo,
+  ]);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -58,9 +76,7 @@ const ProductsListScreen = ({ history }) => {
 
   const createHandler = () => {
     dispatch(createProduct());
-    if (successCreate) {
-      history.push(`/admin/product/edit/${newProduct._id}`);
-    }
+    // if (newProduct) history.push(`/admin/products/edit/${newProduct._id}`);
   };
 
   const confirmDeleteHandler = (productId) => {
@@ -105,7 +121,7 @@ const ProductsListScreen = ({ history }) => {
               <tr key={product._id}>
                 <td>{index + 1}</td>
                 <td>
-                  <Link to={`/admin/product/${product._id}/edit`}>
+                  <Link to={`/admin/products/edit/${product._id}`}>
                     {product.name}
                   </Link>
                 </td>
@@ -115,7 +131,7 @@ const ProductsListScreen = ({ history }) => {
                 <td>{product.countInStock}</td>
                 <td>{product.updatedAt.substring(0, 10)}</td>
                 <td>
-                  <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                  <LinkContainer to={`/admin/products/edit/${product._id}`}>
                     <Button variant='light' className='btn-sm'>
                       Edit
                     </Button>
