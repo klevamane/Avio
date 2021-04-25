@@ -47,6 +47,7 @@ const UserGetEditScreen = ({ history, location, match }) => {
         setName(user.name);
         setEmail(user.email);
         SetIsAdmin(user.isAdmin);
+        console.log(user.isAdmin);
       }
     }
   }, [history, loggedInUserInfo, user, successUpdate, dispatch, match]);
@@ -103,6 +104,7 @@ const UserGetEditScreen = ({ history, location, match }) => {
                   type='checkbox'
                   label='Admin'
                   value={isAdmin}
+                  defaultChecked={isAdmin}
                   onChange={(e) => SetIsAdmin(e.target.value)}
                 />
               </Form.Group>

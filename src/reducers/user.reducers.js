@@ -118,7 +118,7 @@ export const usersGetAnyReducer = (
 };
 
 export const usersUpdateAnyReducer = (
-  state = { user: {}, success: false, loading: true },
+  state = { user: {}, success: false },
   action,
 ) => {
   switch (action.type) {
