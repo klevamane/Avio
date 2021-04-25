@@ -2,6 +2,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_GET_ALL_FAIL,
+  ORDER_GET_ALL_REQUEST,
+  ORDER_GET_ALL_SUCCESS,
   ORDER_GET_DETAILS_FAIL,
   ORDER_GET_DETAILS_REQUEST,
   ORDER_GET_DETAILS_SUCCESS,
@@ -134,6 +137,39 @@ export const listSingleUserOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_LIST_SINGLE_USER_ORDERS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getAllOrders = () => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+
+  try {
+    dispatch({ type: ORDER_GET_ALL_REQUEST });
+    const { data } = await axios.get(
+      'http://localhost:5000/api/orders',
+      config,
+    );
+
+    dispatch({
+      type: ORDER_GET_ALL_SUCCESS,
+      payload: data.orders,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_GET_ALL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -1,6 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { authLoginReducer, authSignupReducer } from './reducers/auth.reducers';
 import {
+  getAllOrdersReducer,
   orderCreateReducer,
   orderGetDetailsReducer,
   orderGetSingleUserOrdersReducer,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   orderDetails: orderGetDetailsReducer,
   orderPay: orderPayReducer,
   orderSingleUserOrders: orderGetSingleUserOrdersReducer,
+  orderGetAllOrder: getAllOrdersReducer,
   usersList: usersListReducer,
   userDelete: usersDeleteReducer,
   userGetAnyUser: usersGetAnyReducer,

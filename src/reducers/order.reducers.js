@@ -2,6 +2,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_GET_ALL_FAIL,
+  ORDER_GET_ALL_REQUEST,
+  ORDER_GET_ALL_SUCCESS,
   ORDER_GET_DETAILS_FAIL,
   ORDER_GET_DETAILS_REQUEST,
   ORDER_GET_DETAILS_SUCCESS,
@@ -113,6 +116,32 @@ export const orderGetSingleUserOrdersReducer = (
     case ORDER_LIST_SINGLE_USER_ORDERS_FAIL:
       return { loading: false, error: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+export const getAllOrdersReducer = (state = { orders: [] }, action) => {
+  switch (action.type) {
+    case ORDER_GET_ALL_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case ORDER_GET_ALL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        orders: action.payload,
+      };
+
+    case ORDER_GET_ALL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
