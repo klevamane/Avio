@@ -70,7 +70,6 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       Authorization: `Bearer ${loggedInUserInfo.user.token}`,
     },
   };
-  console.log('HERE');
 
   try {
     dispatch({ type: PRODUCT_DELETE_REQUEST });
@@ -115,7 +114,6 @@ export const createProduct = () => async (dispatch, getState) => {
     );
     // no need for a payload
     dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data.product });
-    console.log(data.product);
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,

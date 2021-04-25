@@ -1,8 +1,4 @@
 import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
-import {
-  PRODUCT_CREATE_REQUEST,
-  PRODUCT_EDIT_RESET,
-} from '../../constants/product';
 import React, { useEffect } from 'react';
 import {
   createProduct,
@@ -15,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../loader';
 import Message from '../message';
+import { PRODUCT_CREATE_REQUEST } from '../../constants/product';
 import { useState } from 'react';
 
 const ProductsListScreen = ({ history }) => {
@@ -29,7 +26,7 @@ const ProductsListScreen = ({ history }) => {
   const productDelete = useSelector((state) => state.productDelete);
   const {
     success: successDelete,
-    loading: deleteLoading,
+    loading: loadingDelete,
     error: deleteError,
   } = productDelete;
 
@@ -88,6 +85,8 @@ const ProductsListScreen = ({ history }) => {
     <>
       {createError && <Message variant='danger'>{createError}</Message>}
       {deleteError && <Message variant='danger'>{deleteError}</Message>}
+      {loadingDelete && <Loader />}
+      {loadingCreate && <Loader />}
       <Row className='my-3'>
         <Col>
           <h2>Products List</h2>

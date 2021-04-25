@@ -162,7 +162,7 @@ const ProfileScreen = ({ history, location }) => {
                         )}
                       </td>
                       <td>
-                        <Link to={`/orders/${order._id}`}>View</Link>
+                        <Link to={`/order/${order._id}`}>View</Link>
                       </td>
                     </tr>
                   ))}

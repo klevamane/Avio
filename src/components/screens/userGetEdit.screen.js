@@ -53,7 +53,7 @@ const UserGetEditScreen = ({ history, location, match }) => {
 
   useEffect(() => {
     dispatch(getAnyUser(match.params.id));
-  }, []);
+  }, [dispatch, match]);
   const submitHandler = (e) => {
     e.preventDefault();
     // Dispatch update profile
@@ -62,6 +62,7 @@ const UserGetEditScreen = ({ history, location, match }) => {
 
   return (
     <>
+      {updateAnyUserLoading && <Loader />}
       {message ? <Message variant='danger'>{message}</Message> : ''}
       {successUpdate && <Message>Update successful</Message>}
       {error ? <Message variant='danger'>{error}</Message> : ''}

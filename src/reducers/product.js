@@ -52,7 +52,7 @@ export const productDetailsReducer = (
 };
 
 export const productDeleteReducer = (
-  state = { success: false, loading: true },
+  state = { success: false, loading: false },
   action,
 ) => {
   switch (action.type) {

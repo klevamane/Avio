@@ -1,14 +1,12 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import {
-  PRODUCT_CREATE_RESET,
-  PRODUCT_EDIT_RESET,
-} from '../../constants/product';
 import React, { useEffect, useState } from 'react';
 import { editProduct, getProductDetails } from '../../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../loader';
 import Message from '../message';
+import { PRODUCT_EDIT_RESET } from '../../constants/product';
+import axios from 'axios';
 
 const ProductEditScreen = ({ history, location, match }) => {
   const [name, setName] = useState('');
@@ -19,6 +17,7 @@ const ProductEditScreen = ({ history, location, match }) => {
   const [brand, setBrand] = useState('');
   const [image, setImage] = useState('');
   const [message, setMessage] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -69,7 +68,7 @@ const ProductEditScreen = ({ history, location, match }) => {
     // on load/mount
     // dispatch({ type: PRODUCT_CREATE_RESET });
     dispatch(getProductDetails(match.params.id));
-  }, []);
+  }, [dispatch, match]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -85,6 +84,33 @@ const ProductEditScreen = ({ history, location, match }) => {
         image,
       }),
     );
+  };
+
+  const uploadFileHandler = async (e) => {
+    // since we are only uploading a singke file
+    // it will be the first item in the array
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const { data } = await axios.post(
+        'http://localhost:5000/api/upload',
+        formData,
+        config,
+      );
+      console.log('image-data ', data);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -137,8 +163,25 @@ const ProductEditScreen = ({ history, location, match }) => {
                   type='text'
                   placeholder='Enter description'
                   value={description}
-                  onChange={(e) => setBrand(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                 ></Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId='image'>
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Enter image url'
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                ></Form.Control>
+                <Form.File
+                  id='image-file'
+                  label='Choose file'
+                  custom
+                  onChange={uploadFileHandler}
+                ></Form.File>
+                {uploading && <Loader />}
               </Form.Group>
 
               <Form.Group controlId='countInStock'>

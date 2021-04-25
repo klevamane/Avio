@@ -30,8 +30,6 @@ const ShippingScreen = ({ history }) => {
       }),
     );
     history.push('/payment');
-
-    console.log('Submitted');
   };
   return (
     <FormContainer>
