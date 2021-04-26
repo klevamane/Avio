@@ -4,6 +4,7 @@ import {
   Col,
   Image,
   ListGroup,
+  Modal,
   Row,
   Spinner,
 } from 'react-bootstrap';
@@ -109,8 +110,18 @@ const OrderScreen = ({ match, history }) => {
   const submitDeliveryHandler = (e) => {
     e.preventDefault();
     dispatch(deliverOrder(orderId));
+    handleClose();
   };
-  console.log('SUCCESS DELIVERY ->  ', successDelivery);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const confirmDeliveryHandler = () => {
+    handleShow();
+  };
+
   return loading ? (
     <Spinner />
   ) : error ? (
@@ -249,7 +260,10 @@ const OrderScreen = ({ match, history }) => {
               {deliveryLoading && <Loader />}
               {!empty(user) && user.isAdmin && !order.isDelivered && (
                 <ListGroup.Item>
-                  <Button className='btn-block' onClick={submitDeliveryHandler}>
+                  <Button
+                    className='btn-block'
+                    onClick={confirmDeliveryHandler}
+                  >
                     Mark as delivered
                   </Button>
                 </ListGroup.Item>
@@ -258,6 +272,22 @@ const OrderScreen = ({ match, history }) => {
           </Card>
         </Col>
       </Row>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delivery!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to mark this order as delivered?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant='light' onClick={submitDeliveryHandler}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
