@@ -1,14 +1,30 @@
-import { Card, Col, Image, ListGroup, Row, Spinner } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  Row,
+  Spinner,
+} from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { getOrderById, payOrder } from '../../actions/order.actions';
+import {
+  deliverOrder,
+  getOrderById,
+  payOrder,
+} from '../../actions/order.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import Loader from '../loader';
 import Message from '../message';
-import { ORDER_PAY_RESET } from '../../constants/order.constant';
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from '../../constants/order.constant';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
+import { empty } from '../../utils';
 
 const OrderScreen = ({ match, history }) => {
   const dispatch = useDispatch();
@@ -17,12 +33,19 @@ const OrderScreen = ({ match, history }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { user } = userDetails;
+  const authLoginInfo = useSelector((state) => state.authLoginInfo);
+  let user = {};
 
+  const { loggedInUserInfo } = authLoginInfo;
+  if (!empty(authLoginInfo)) {
+    user = loggedInUserInfo.user;
+  }
   const orderPay = useSelector((state) => state.orderPay);
   // get success as successPay and loading as well
   const { success: successPay, loading: loadingPay } = orderPay;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { success: successDelivery, loading: deliveryLoading } = orderDeliver;
 
   if (!loading && order) {
     // Calculate the prices
@@ -38,7 +61,7 @@ const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    if (empty(authLoginInfo) || empty(user)) {
       history.push('/login');
     }
 
@@ -54,8 +77,9 @@ const OrderScreen = ({ match, history }) => {
       document.body.appendChild(script);
     };
 
-    if (!order || successPay || order._id !== orderId) {
+    if (!order || successPay || order._id !== orderId || successDelivery) {
       dispatch({ type: ORDER_PAY_RESET });
+      dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderById(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -64,7 +88,16 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [order, successPay, user, orderId, history, dispatch]);
+  }, [
+    order,
+    successPay,
+    successDelivery,
+    user,
+    orderId,
+    authLoginInfo,
+    history,
+    dispatch,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     // The paymentResult is an object that comes from
@@ -72,6 +105,12 @@ const OrderScreen = ({ match, history }) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
+
+  const submitDeliveryHandler = (e) => {
+    e.preventDefault();
+    dispatch(deliverOrder(orderId));
+  };
+  console.log('SUCCESS DELIVERY ->  ', successDelivery);
   return loading ? (
     <Spinner />
   ) : error ? (
@@ -201,11 +240,20 @@ const OrderScreen = ({ match, history }) => {
                   )}
                 </ListGroup.Item>
               )}
+
               {/* {error && (
                 <ListGroup.Item>
                   <Message variant='danger'>{error}</Message>
                 </ListGroup.Item>
               )} */}
+              {deliveryLoading && <Loader />}
+              {!empty(user) && user.isAdmin && !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button className='btn-block' onClick={submitDeliveryHandler}>
+                    Mark as delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

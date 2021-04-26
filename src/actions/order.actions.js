@@ -2,6 +2,9 @@ import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
+  ORDER_DELIVER_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
   ORDER_GET_ALL_FAIL,
   ORDER_GET_ALL_REQUEST,
   ORDER_GET_ALL_SUCCESS,
@@ -170,6 +173,39 @@ export const getAllOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_GET_ALL_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deliverOrder = (orderId) => async (dispatch, getState) => {
+  const {
+    authLoginInfo: { loggedInUserInfo },
+  } = getState();
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${loggedInUserInfo.user.token}`,
+    },
+  };
+  try {
+    dispatch({ type: ORDER_DELIVER_REQUEST });
+    console.log('THE RESULT START');
+    const result = await axios.patch(
+      `http://localhost:5000/api/orders/${orderId}/deliver`,
+      {}, // pass an empty object since we aren't updating anything
+      config,
+    );
+    console.log('THE RESULT', result);
+
+    dispatch({ type: ORDER_DELIVER_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

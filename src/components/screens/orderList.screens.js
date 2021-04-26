@@ -1,6 +1,5 @@
-import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
+import { Button, Col, Row, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
-import { createProduct, deleteProduct } from '../../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../loader';
 import Message from '../message';
 import { getAllOrders } from '../../actions/order.actions';
-import { useState } from 'react';
 
 const OrderListScreen = ({ history }) => {
   const dispatch = useDispatch();

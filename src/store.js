@@ -3,6 +3,7 @@ import { authLoginReducer, authSignupReducer } from './reducers/auth.reducers';
 import {
   getAllOrdersReducer,
   orderCreateReducer,
+  orderDeliverReducer,
   orderGetDetailsReducer,
   orderGetSingleUserOrdersReducer,
   orderPayReducer,
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderGetDetailsReducer,
   orderPay: orderPayReducer,
+  orderDeliver: orderDeliverReducer,
   orderSingleUserOrders: orderGetSingleUserOrdersReducer,
   orderGetAllOrder: getAllOrdersReducer,
   usersList: usersListReducer,
