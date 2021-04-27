@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Loader from '../loader';
 import Rating from '../Rating';
-import { getProductDetails } from '../../actions/product';
+import { createProductReview, getProductDetails } from '../../actions/product';
 import Message from '../message';
+import { PRODUCT_REVIEW_CREATE_RESET } from '../../constants/product';
 
 const ProductScreen = ({ history, match }) => {
 	const productDetails = useSelector((state) => state.productDetails);
@@ -16,7 +17,7 @@ const ProductScreen = ({ history, match }) => {
 	const {
 		loading: createReviewLoading,
 		error: createReviewError,
-		success: productReviewSuccess,
+		success: productCreateReviewSuccess,
 	} = productReviewCreate;
 
 	const authLoginInfo = useSelector((state) => state.authLoginInfo);
@@ -28,8 +29,13 @@ const ProductScreen = ({ history, match }) => {
 	const [rating, setRating] = useState(0);
 
 	useEffect(() => {
+		if (productCreateReviewSuccess) {
+			setRating(0);
+			setComment('');
+			dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
+		}
 		dispatch(getProductDetails(match.params.id));
-	}, [dispatch, match]);
+	}, [dispatch, match, productCreateReviewSuccess]);
 
 	const addToCartHandler = () => {
 		// redirect
@@ -38,11 +44,14 @@ const ProductScreen = ({ history, match }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('SubmitHandler reached');
+		dispatch(createProductReview(match.params.id, { rating, comment }));
 	};
-
 	return (
 		<div>
+			{productCreateReviewSuccess && <Message>Review submitted</Message>}
+			{createReviewError && (
+				<Message variant='danger'>{createReviewError}</Message>
+			)}
 			<Link className='btn btn-light my-3' to='/'>
 				Go back
 			</Link>
@@ -171,6 +180,7 @@ const ProductScreen = ({ history, match }) => {
 												<Form.Control
 													as='select'
 													value={rating}
+													required
 													onChange={(e) => setRating(e.target.value)}
 												>
 													<option value=''>Select...</option>
@@ -187,12 +197,18 @@ const ProductScreen = ({ history, match }) => {
 												as='textarea'
 												rows='3'
 												value={comment}
+												required
 												onChange={(e) => setComment(e.target.value)}
 											></Form.Control>
+											{createReviewLoading && <Loader />}
+											<Button type='submit' className='my-3 btn-block'>
+												Submit
+											</Button>
 										</Form>
 									) : (
 										<Message>
-											Please <Link to='/login'>sign In</Link>to write a review
+											Please <Link to='/auth/login'>sign In</Link>to write a
+											review
 										</Message>
 									)}
 								</ListGroup.Item>
