@@ -7,61 +7,61 @@ import { FormContainer } from '../Form.container';
 import { savePaymentMethod } from '../../actions/cart.actions';
 
 const PaymentScreen = ({ history }) => {
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+	const cart = useSelector((state) => state.cart);
+	const { shippingAddress } = cart;
 
-  if (!shippingAddress) {
-    history.push('/shipping');
-  }
+	if (!shippingAddress) {
+		history.push('/shipping');
+	}
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  //   fill these fields with the shipping address from the local storage
-  //   initially, if the data exists in the localStorage
-  const [paymentMethod, setPaymentMethod] = useState('Paypal');
+	//   fill these fields with the shipping address from the local storage
+	//   initially, if the data exists in the localStorage
+	const [paymentMethod, setPaymentMethod] = useState('Paypal');
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(savePaymentMethod(paymentMethod));
-    history.push('/placeorder');
-  };
-  return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 step3 />
+	const submitHandler = (e) => {
+		e.preventDefault();
+		dispatch(savePaymentMethod(paymentMethod));
+		history.push('/placeorder');
+	};
+	return (
+		<FormContainer>
+			<CheckoutSteps step1 step2 step3 />
 
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label as='legend'>Select payment method</Form.Label>
-          <Col className='my-5'>
-            <Form.Check
-              className='my-1'
-              type='radio'
-              label='Paypal or Credit Card'
-              id='paypal'
-              name='paymentMethod'
-              value='Paypal'
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
+			<Form onSubmit={submitHandler}>
+				<Form.Group>
+					<Form.Label as='legend'>Select payment method</Form.Label>
+					<Col className='my-5'>
+						<Form.Check
+							className='my-1'
+							type='radio'
+							label='Paypal or Credit Card'
+							id='paypal'
+							name='paymentMethod'
+							value='Paypal'
+							checked
+							onChange={(e) => setPaymentMethod(e.target.value)}
+						></Form.Check>
 
-            <Form.Check
-              className='my-5'
-              type='radio'
-              label='Stripe'
-              id='stripe'
-              name='paymentMethod'
-              value='Stripe'
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
-          </Col>
-        </Form.Group>
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
-  );
+						<Form.Check
+							className='my-5'
+							type='radio'
+							label='Stripe'
+							id='stripe'
+							name='paymentMethod'
+							value='Stripe'
+							checked
+							onChange={(e) => setPaymentMethod(e.target.value)}
+						></Form.Check>
+					</Col>
+				</Form.Group>
+				<Button type='submit' variant='primary'>
+					Continue
+				</Button>
+			</Form>
+		</FormContainer>
+	);
 };
 
 export default PaymentScreen;
