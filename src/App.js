@@ -56,6 +56,14 @@ const App = () => {
 						component={ProductEditScreen}
 					/>
 					<Route path={'/search/:keyword'} component={HomeScreen} exact />
+					<Route path={'/page/:pageNumber'} component={HomeScreen} exact />
+
+					{/* if we have a search result with pagination then */}
+					<Route
+						path={'/search/:keyword/page/:pageNumber'}
+						component={HomeScreen}
+						exact
+					/>
 
 					{/* make the id optional */}
 					<Route path={'/cart/:id?'} component={CartScreen} exact />
