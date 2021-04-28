@@ -8,6 +8,7 @@ import Product from '../../components/Product';
 import { listProducts as listProductsAction } from '../../actions/product';
 import { useState } from 'react';
 import Paginate from '../paginate.component';
+import ProductCarousel from '../product.carousel.component';
 
 const HomeScreen = ({ match }) => {
 	const dispatch = useDispatch();
@@ -24,9 +25,9 @@ const HomeScreen = ({ match }) => {
 		dispatch(listProductsAction(keyword, pageNumber));
 	}, [dispatch, keyword, pageNumber]);
 
-	console.log('PAGE NUMBER VALUE -> ', pageNum);
 	return (
 		<>
+			<ProductCarousel />
 			<h3>Latest products</h3>
 
 			{loading ? (

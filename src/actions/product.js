@@ -17,6 +17,9 @@ import {
 	PRODUCT_REVIEW_CREATE_FAIL,
 	PRODUCT_REVIEW_CREATE_REQUEST,
 	PRODUCT_REVIEW_CREATE_SUCCESS,
+	PRODUCT_TOP_RATED_FAIL,
+	PRODUCT_TOP_RATED_REQUEST,
+	PRODUCT_TOP_RATED_SUCCESS,
 } from '../constants/product.js';
 
 import axios from 'axios';
@@ -194,6 +197,25 @@ export const createProductReview = (productId, review) => async (
 	} catch (error) {
 		dispatch({
 			type: PRODUCT_REVIEW_CREATE_FAIL,
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};
+
+export const getTopRatedProducts = () => async (dispatch) => {
+	try {
+		dispatch({ type: PRODUCT_TOP_RATED_REQUEST });
+		const { data } = await axios.get(
+			`http://localhost:5000/api/products/rated/top-rated`
+		);
+		// no need for a payload
+		dispatch({ type: PRODUCT_TOP_RATED_SUCCESS, payload: data.topRated });
+	} catch (error) {
+		dispatch({
+			type: PRODUCT_TOP_RATED_FAIL,
 			payload:
 				error.response && error.response.data.message
 					? error.response.data.message

@@ -33,3 +33,13 @@ h2 {
   font-size: 1.4rem;
   padding: 0.5rem 0;
 }
+
+.carousel {
+  background-color: rgb(123,138,139);
+}
+
+.carousel-caption h2 {
+  color: rgb(123,138,139);
+  font-weight: 400;
+  
+}
