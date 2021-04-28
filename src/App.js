@@ -50,6 +50,12 @@ const App = () => {
 						component={ProductsListScreen}
 						exact
 					/>
+					{/* Pagination */}
+					<Route
+						path={'/admin/products/:pageNumber'}
+						component={ProductsListScreen}
+						exact
+					/>
 					<Route path={'/admin/orders'} component={OrderListScreen} exact />
 					<Route
 						path={'/admin/products/edit/:id'}
@@ -59,6 +65,7 @@ const App = () => {
 					<Route path={'/page/:pageNumber'} component={HomeScreen} exact />
 
 					{/* if we have a search result with pagination then */}
+					{/* Pagination */}
 					<Route
 						path={'/search/:keyword/page/:pageNumber'}
 						component={HomeScreen}

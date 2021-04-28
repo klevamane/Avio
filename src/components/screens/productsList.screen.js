@@ -13,15 +13,24 @@ import Loader from '../loader';
 import Message from '../message';
 import { PRODUCT_CREATE_REQUEST } from '../../constants/product';
 import { useState } from 'react';
+import Paginate from '../paginate.component';
 
-const ProductsListScreen = ({ history }) => {
+const ProductsListScreen = ({ history, match }) => {
 	const dispatch = useDispatch();
+
+	const pageNumber = match.params.pageNumber || 1;
 
 	const authLoginInfo = useSelector((state) => state.authLoginInfo);
 	const { loggedInUserInfo } = authLoginInfo;
 
 	const productList = useSelector((state) => state.productList);
-	const { products, error, loading: productsLoading } = productList;
+	const {
+		products,
+		error,
+		loading: productsLoading,
+		pages,
+		page,
+	} = productList;
 
 	const productDelete = useSelector((state) => state.productDelete);
 	const {
@@ -52,13 +61,14 @@ const ProductsListScreen = ({ history }) => {
 			dispatch({ type: PRODUCT_CREATE_REQUEST });
 			console.log('successCreate b ', successCreate);
 		} else {
-			dispatch(listProducts());
+			dispatch(listProducts('', pageNumber));
 		}
 	}, [
 		dispatch,
 		history,
 		successDelete,
 		newProduct,
+		pageNumber,
 		successCreate,
 		loggedInUserInfo,
 	]);
@@ -148,6 +158,9 @@ const ProductsListScreen = ({ history }) => {
 					</tbody>
 				</Table>
 			)}
+			<Row className='justify-content-center'>
+				<Paginate pages={pages} page={page} isAdmin={true} />
+			</Row>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title>Confirm Delete!</Modal.Title>
