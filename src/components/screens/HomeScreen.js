@@ -7,16 +7,18 @@ import Message from '../message';
 import Product from '../../components/Product';
 import { listProducts as listProductsAction } from '../../actions/product';
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
 	const dispatch = useDispatch();
+
+	const keyword = match.params.keyword;
 
 	// The productList, is the same key we used in the store at combineReducers
 	const productList = useSelector((state) => state.productList);
 	const { loading, error, products } = productList;
 
 	useEffect(() => {
-		dispatch(listProductsAction());
-	}, [dispatch]);
+		dispatch(listProductsAction(keyword));
+	}, [dispatch, keyword]);
 
 	return (
 		<>

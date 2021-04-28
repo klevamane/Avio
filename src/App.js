@@ -55,13 +55,14 @@ const App = () => {
 						path={'/admin/products/edit/:id'}
 						component={ProductEditScreen}
 					/>
+					<Route path={'/search/:keyword'} component={HomeScreen} exact />
 
 					{/* make the id optional */}
 					<Route path={'/cart/:id?'} component={CartScreen} exact />
 					<Route path={'/shipping'} component={ShippingScreen} exact />
 					<Route path={'/payment'} component={PaymentScreen} exact />
 					<Route path={'/placeorder'} component={PlaceOrderScreen} exact />
-					<Route path={'/order/:id'} component={OrderScreen} exact />
+					<Route path={'/order/:id'} component={HomeScreen} exact />
 				</Container>
 			</main>
 			<Footer />

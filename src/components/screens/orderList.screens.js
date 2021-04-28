@@ -7,6 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../loader';
 import Message from '../message';
 import { getAllOrders } from '../../actions/order.actions';
+import { empty } from '../../utils';
 
 const OrderListScreen = ({ history }) => {
 	const dispatch = useDispatch();
@@ -18,8 +19,8 @@ const OrderListScreen = ({ history }) => {
 	const { orders, error, loading: getAllordersLoading } = orderList;
 
 	useEffect(() => {
-		if (!loggedInUserInfo && !loggedInUserInfo.user.isAdmin) {
-			history.push('/login');
+		if (empty(loggedInUserInfo) || !loggedInUserInfo.user.isAdmin) {
+			history.push('/auth/login');
 		}
 		dispatch(getAllOrders());
 	}, [dispatch, history, loggedInUserInfo]);

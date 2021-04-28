@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
 import { logout } from '../actions/auth.actions';
+import { Route } from 'react-router';
+import SearchBox from './searchbox.component';
 
 const Header = () => {
 	const dispatch = useDispatch();
@@ -23,6 +25,12 @@ const Header = () => {
 					<LinkContainer to='/'>
 						<Navbar.Brand>AVIO</Navbar.Brand>
 					</LinkContainer>
+					{/* we need to pass history to this component as the component cannot
+					on it's own access the history props, since it is embeded in another component
+					ie the Header component
+					One other we this can be done is to access the history props from the header
+					component, and pass the history props to the search component */}
+					<Route render={({ history }) => <SearchBox history={history} />} />
 					<Navbar.Toggle aria-controls='basic-navbar-nav' />
 					<Navbar.Collapse id='basic-navbar-nav'>
 						<Nav className='ml-auto'>
