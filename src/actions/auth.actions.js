@@ -24,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
 			},
 		};
 		const { data } = await axios.post(
-			'http://localhost:5000/api/auth/login',
+			process.env.REACT_APP_BASE_URL + '/api/auth/login',
 			{ email, password },
 			config
 		);
@@ -52,7 +52,7 @@ export const signup = (email, password, name) => async (dispatch) => {
 			},
 		};
 		const { data } = await axios.post(
-			'http://localhost:5000/api/auth/signup',
+			process.env.REACT_APP_BASE_URL + '/api/auth/signup',
 			{ email, password, name },
 			config
 		);

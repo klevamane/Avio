@@ -35,7 +35,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: ORDER_CREATE_REQUEST });
 		const { data } = await axios.post(
-			'http://localhost:5000/api/orders',
+			process.env.REACT_APP_BASE_URL + '/api/orders',
 			order,
 			config
 		);
@@ -65,7 +65,7 @@ export const getOrderById = (orderId) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: ORDER_GET_DETAILS_REQUEST });
 		const { data } = await axios.get(
-			`http://localhost:5000/api/orders/${orderId}`,
+			process.env.REACT_APP_BASE_URL + `/api/orders/${orderId}`,
 			config
 		);
 
@@ -98,7 +98,7 @@ export const payOrder = (orderId, paymentResult) => async (
 	try {
 		dispatch({ type: ORDER_PAY_REQUEST });
 		const { data } = await axios.put(
-			`http://localhost:5000/api/orders/${orderId}/pay`,
+			process.env.REACT_APP_BASE_URL + `/api/orders/${orderId}/pay`,
 			paymentResult,
 			config
 		);
@@ -129,7 +129,7 @@ export const listSingleUserOrders = () => async (dispatch, getState) => {
 	try {
 		dispatch({ type: ORDER_LIST_SINGLE_USER_ORDERS_REQUEST });
 		const { data } = await axios.get(
-			'http://localhost:5000/api/orders/user/all',
+			process.env.REACT_APP_BASE_URL + '/api/orders/user/all',
 			config
 		);
 
@@ -162,7 +162,7 @@ export const getAllOrders = () => async (dispatch, getState) => {
 	try {
 		dispatch({ type: ORDER_GET_ALL_REQUEST });
 		const { data } = await axios.get(
-			'http://localhost:5000/api/orders',
+			process.env.REACT_APP_BASE_URL + '/api/orders',
 			config
 		);
 
@@ -196,7 +196,7 @@ export const deliverOrder = (orderId) => async (dispatch, getState) => {
 		dispatch({ type: ORDER_DELIVER_REQUEST });
 		console.log('THE RESULT START');
 		const result = await axios.patch(
-			`http://localhost:5000/api/orders/${orderId}/deliver`,
+			process.env.REACT_APP_BASE_URL + `/api/orders/${orderId}/deliver`,
 			{}, // pass an empty object since we aren't updating anything
 			config
 		);

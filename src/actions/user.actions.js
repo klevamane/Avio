@@ -35,7 +35,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
 	try {
 		dispatch({ type: USER_DETAILS_REQUEST });
 		const { data } = await axios.get(
-			'http://localhost:5000/api/users/profile',
+			process.env.REACT_APP_BASE_URL + '/api/users/profile',
 			config
 		);
 
@@ -65,7 +65,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
 		const { data } = await axios.put(
-			'http://localhost:5000/api/users/profile',
+			process.env.REACT_APP_BASE_URL + '/api/users/profile',
 			user,
 			config
 		);
@@ -95,7 +95,10 @@ export const usersList = () => async (dispatch, getState) => {
 
 	try {
 		dispatch({ type: USERS_LIST_REQUEST });
-		const { data } = await axios.get('http://localhost:5000/api/users', config);
+		const { data } = await axios.get(
+			process.env.REACT_APP_BASE_URL + '/api/users',
+			config
+		);
 		dispatch({ type: USERS_LIST_SUCCESS, payload: data.users });
 	} catch (error) {
 		dispatch({
@@ -121,7 +124,10 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 
 	try {
 		dispatch({ type: USER_DELETE_REQUEST });
-		await axios.delete(`http://localhost:5000/api/users/${id}`, config);
+		await axios.delete(
+			process.env.REACT_APP_BASE_URL + `/api/users/${id}`,
+			config
+		);
 		// no need for a payload
 		dispatch({ type: USER_DELETE_SUCCESS });
 	} catch (error) {
@@ -149,7 +155,7 @@ export const getAnyUser = (id) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: USER_GET_ANY_DETAILS_REQUEST });
 		const { data } = await axios.get(
-			`http://localhost:5000/api/users/admin/single/${id}`,
+			process.env.REACT_APP_BASE_URL + `/api/users/admin/single/${id}`,
 			config
 		);
 		// no need for a payload
@@ -179,7 +185,7 @@ export const updateAnyUser = (id, updateData) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: USER_UPDATE_ANY_DETAILS_REQUEST });
 		await axios.put(
-			`http://localhost:5000/api/users/admin/update/${id}`,
+			process.env.REACT_APP_BASE_URL + `/api/users/admin/update/${id}`,
 			updateData,
 			config
 		);

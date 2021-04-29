@@ -100,7 +100,7 @@ const ProductEditScreen = ({ history, location, match }) => {
 				},
 			};
 			const { data } = await axios.post(
-				'http://localhost:5000/api/upload',
+				process.env.BASE_URL + '/api/upload',
 				formData,
 				config
 			);

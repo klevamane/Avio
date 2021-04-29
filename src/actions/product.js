@@ -33,7 +33,8 @@ export const listProducts = (keyword = '', pageNumber = '') => async (
 		dispatch({ type: PRODUCT_LIST_REQUEST });
 
 		const { data } = await axios.get(
-			`http://localhost:5000/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+			process.env.REACT_APP_BASE_URL +
+				`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
 		);
 
 		dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
@@ -55,7 +56,7 @@ export const getProductDetails = (id) => async (dispatch) => {
 		dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
 		const { data } = await axios.get(
-			`http://localhost:5000/api/products/${id}`
+			process.env.REACT_APP_BASE_URL + `/api/products/${id}`
 		);
 
 		dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
@@ -84,7 +85,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 	try {
 		dispatch({ type: PRODUCT_DELETE_REQUEST });
 		await axios.delete(
-			`http://localhost:5000/api/products/admin/delete/${id}`,
+			process.env.REACT_APP_BASE_URL + `/api/products/admin/delete/${id}`,
 			config
 		);
 		// no need for a payload
@@ -118,7 +119,7 @@ export const createProduct = () => async (dispatch, getState) => {
 		// automatically creates a generic product
 		// when this endpoint is hit
 		const { data } = await axios.post(
-			`http://localhost:5000/api/products/admin/create`,
+			process.env.REACT_APP_BASE_URL + `/api/products/admin/create`,
 			{},
 			config
 		);
@@ -153,7 +154,7 @@ export const editProduct = (id, updateData) => async (dispatch, getState) => {
 		// automatically creates a generic product
 		// when this endpoint is hit
 		const { data } = await axios.patch(
-			`http://localhost:5000/api/products/admin/update/${id}`,
+			process.env.REACT_APP_BASE_URL + `/api/products/admin/update/${id}`,
 			updateData,
 			config
 		);
@@ -188,7 +189,7 @@ export const createProductReview = (productId, review) => async (
 	try {
 		dispatch({ type: PRODUCT_REVIEW_CREATE_REQUEST });
 		await axios.post(
-			`http://localhost:5000/api/reviews/${productId}/create`,
+			process.env.REACT_APP_BASE_URL + `/api/reviews/${productId}/create`,
 			review,
 			config
 		);
@@ -209,7 +210,7 @@ export const getTopRatedProducts = () => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_TOP_RATED_REQUEST });
 		const { data } = await axios.get(
-			`http://localhost:5000/api/products/rated/top-rated`
+			process.env.REACT_APP_BASE_URL + '/api/products/rated/top-rated'
 		);
 		// no need for a payload
 		dispatch({ type: PRODUCT_TOP_RATED_SUCCESS, payload: data.topRated });
