@@ -35,11 +35,13 @@ const OrderScreen = ({ match, history }) => {
 	const { order, loading, error } = orderDetails;
 
 	const authLoginInfo = useSelector((state) => state.authLoginInfo);
-	let user = {};
+	let user;
 
 	const { loggedInUserInfo } = authLoginInfo;
 	if (!empty(authLoginInfo)) {
 		user = loggedInUserInfo.user;
+	} else {
+		user = {};
 	}
 	const orderPay = useSelector((state) => state.orderPay);
 	// get success as successPay and loading as well

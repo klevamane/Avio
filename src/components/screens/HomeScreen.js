@@ -1,4 +1,4 @@
-import { Col, Pagination, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,7 +6,6 @@ import Loader from '../loader';
 import Message from '../message';
 import Product from '../../components/Product';
 import { listProducts as listProductsAction } from '../../actions/product';
-import { useState } from 'react';
 import Paginate from '../paginate.component';
 import ProductCarousel from '../product.carousel.component';
 
@@ -20,7 +19,6 @@ const HomeScreen = ({ match }) => {
 	const productList = useSelector((state) => state.productList);
 	const { loading, error, products, page: currentPage, pages } = productList;
 
-	const [pageNum, setpageNum] = useState(currentPage);
 	useEffect(() => {
 		dispatch(listProductsAction(keyword, pageNumber));
 	}, [dispatch, keyword, pageNumber]);

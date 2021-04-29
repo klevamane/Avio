@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Pagination, Row, Table } from 'react-bootstrap';
+import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import {
 	createProduct,

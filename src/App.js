@@ -14,7 +14,6 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import HomeScreen from './components/screens/HomeScreen';
 import OrderListScreen from './components/screens/orderList.screens';
-import OrderScreen from './components/screens/order.screen';
 import PaymentScreen from './components/screens/payment.screen';
 import PlaceOrderScreen from './components/screens/placeOrder.screen';
 import ProductEditScreen from './components/screens/productEdit.screen';
@@ -30,6 +29,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import loginScreen from './components/screens/login.screen';
 import logo from './logo.svg';
+import OrderScreen from './components/screens/order.screen';
 
 const App = () => {
 	return (
@@ -40,8 +40,10 @@ const App = () => {
 					<Route path={'/'} component={HomeScreen} exact />
 					<Route path={'/auth/login'} component={loginScreen} exact />
 					<Route path={'/auth/signup'} component={SignupScreen} exact />
-					<Route path={'/product/:id'} component={ProductScreen} />
-					<Route path={'/user/profile'} component={ProfileScreen} />
+					<Route path={'/product/:id'} component={ProductScreen} exact />
+					<Route path={'/user/profile'} component={ProfileScreen} exact />
+					<Route path={'/order/:id'} component={OrderScreen} exact />
+
 					{/* Admin Routes */}
 					<Route path={'/admin/users'} component={UsersScreen} />
 					<Route path={'/admin/user/:id'} component={UserGetEditScreen} />
@@ -77,7 +79,6 @@ const App = () => {
 					<Route path={'/shipping'} component={ShippingScreen} exact />
 					<Route path={'/payment'} component={PaymentScreen} exact />
 					<Route path={'/placeorder'} component={PlaceOrderScreen} exact />
-					<Route path={'/order/:id'} component={HomeScreen} exact />
 				</Container>
 			</main>
 			<Footer />
