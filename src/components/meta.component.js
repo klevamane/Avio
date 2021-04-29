@@ -18,4 +18,10 @@ const Meta = ({ title, description, keywords }) => {
 	);
 };
 
+Meta.defaultProps = {
+	title: 'Welcome to Avio Marketplace',
+	description: 'We sell all kinds of consumer electronics',
+	keywords:
+		'electronics iphone samsung smartphones android laptop charger monitor tv playstation playtstion 4 playstation 5 xbox',
+};
 export default Meta;

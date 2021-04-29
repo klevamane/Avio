@@ -8,6 +8,7 @@ import Rating from '../components/rating.component';
 import { createProductReview, getProductDetails } from '../actions/product';
 import Message from '../components/message.component';
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/product';
+import Meta from '../components/meta.component';
 
 const ProductScreen = ({ history, match }) => {
 	const productDetails = useSelector((state) => state.productDetails);
@@ -61,6 +62,7 @@ const ProductScreen = ({ history, match }) => {
 				{ error }
 			) : (
 				<>
+					<Meta title={product.name} description={product.description} />
 					<Row>
 						<Col md={6}>
 							{/* use fluid to keep the image within it's contianer */}
