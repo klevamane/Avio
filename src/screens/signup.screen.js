@@ -2,7 +2,7 @@ import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FormContainer } from '../components/Form.container.component';
+import { FormContainer } from '../components/form.container.component';
 import { Link } from 'react-router-dom';
 import Message from '../components/message.component';
 import { signup } from '../actions/auth.actions';

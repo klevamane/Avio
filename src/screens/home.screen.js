@@ -8,6 +8,7 @@ import Product from '../components/product.component';
 import { listProducts as listProductsAction } from '../actions/product';
 import Paginate from '../components/paginate.component';
 import ProductCarousel from '../components/product.carousel.component';
+import Meta from '../components/meta.component';
 
 const HomeScreen = ({ match }) => {
 	const dispatch = useDispatch();
@@ -25,6 +26,10 @@ const HomeScreen = ({ match }) => {
 
 	return (
 		<>
+			<Meta
+				description='The best value products online'
+				keyword='tv smartphones electronics'
+			/>
 			<ProductCarousel />
 			<h3>Latest products</h3>
 

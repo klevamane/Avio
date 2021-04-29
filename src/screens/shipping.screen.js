@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CheckoutSteps from '../components/checkoutSteps.component';
-import { FormContainer } from '../components/Form.container.component';
+import { FormContainer } from '../components/form.container.component';
 import { saveShippingAddress } from '../actions/cart.actions';
 
 const ShippingScreen = ({ history }) => {
