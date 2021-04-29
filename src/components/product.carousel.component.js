@@ -4,8 +4,8 @@ import { Carousel, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTopRatedProducts } from '../actions/product';
-import Loader from './loader';
-import Message from './message';
+import Loader from './loader.component';
+import Message from './message.component';
 
 const ProductCarousel = () => {
 	const dispatch = useDispatch();

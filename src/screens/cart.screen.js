@@ -8,11 +8,11 @@ import {
 	Row,
 } from 'react-bootstrap';
 import React, { useEffect } from 'react';
-import { addTocCart, removeFromCart } from '../../actions/cart.actions';
+import { addTocCart, removeFromCart } from '../actions/cart.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import Message from '../message';
+import Message from '../components/message.component';
 
 const CartScreen = ({ history, location, match }) => {
 	const productId = match.params.id;

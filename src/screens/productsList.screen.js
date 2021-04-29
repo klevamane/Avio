@@ -1,19 +1,15 @@
 import { Button, Col, Modal, Row, Table } from 'react-bootstrap';
 import React, { useEffect } from 'react';
-import {
-	createProduct,
-	deleteProduct,
-	listProducts,
-} from '../../actions/product';
+import { createProduct, deleteProduct, listProducts } from '../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import Loader from '../loader';
-import Message from '../message';
-import { PRODUCT_CREATE_REQUEST } from '../../constants/product';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import { PRODUCT_CREATE_REQUEST } from '../constants/product';
 import { useState } from 'react';
-import Paginate from '../paginate.component';
+import Paginate from '../components/paginate.component';
 
 const ProductsListScreen = ({ history, match }) => {
 	const dispatch = useDispatch();

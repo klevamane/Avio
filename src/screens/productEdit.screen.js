@@ -1,11 +1,11 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { editProduct, getProductDetails } from '../../actions/product';
+import { editProduct, getProductDetails } from '../actions/product';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Loader from '../loader';
-import Message from '../message';
-import { PRODUCT_EDIT_RESET } from '../../constants/product';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import { PRODUCT_EDIT_RESET } from '../constants/product';
 import axios from 'axios';
 
 const ProductEditScreen = ({ history, location, match }) => {

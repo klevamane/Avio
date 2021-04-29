@@ -1,12 +1,12 @@
 import { Button, Col, Form, Row, Spinner, Table } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { getUserDetails, updateUserProfile } from '../../actions/user.actions';
+import { getUserDetails, updateUserProfile } from '../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import Loader from '../loader';
-import Message from '../message';
-import { listSingleUserOrders } from '../../actions/order.actions';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import { listSingleUserOrders } from '../actions/order.actions';
 
 const ProfileScreen = ({ history, location }) => {
 	const [email, setEmail] = useState('');

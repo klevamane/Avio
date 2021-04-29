@@ -16,7 +16,7 @@ import {
 	productListReducer,
 	productReviewCreateReducer,
 	productTopRatedReducer,
-} from './reducers/product';
+} from './reducers/product.reducers';
 import {
 	userDetailsReducer,
 	userUpdateProfileReducer,

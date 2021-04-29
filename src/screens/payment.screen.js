@@ -2,9 +2,9 @@ import { Button, Col, Form } from 'react-bootstrap';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CheckoutSteps from '../checkoutSteps';
-import { FormContainer } from '../Form.container';
-import { savePaymentMethod } from '../../actions/cart.actions';
+import CheckoutSteps from '../components/checkoutSteps.component';
+import { FormContainer } from '../components/Form.container.component';
+import { savePaymentMethod } from '../actions/cart.actions';
 
 const PaymentScreen = ({ history }) => {
 	const cart = useSelector((state) => state.cart);

@@ -2,10 +2,10 @@ import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { FormContainer } from '../Form.container';
+import { FormContainer } from '../components/Form.container.component';
 import { Link } from 'react-router-dom';
-import Message from '../message';
-import { signup } from '../../actions/auth.actions';
+import Message from '../components/message.component';
+import { signup } from '../actions/auth.actions';
 
 const SignupScreen = ({ history, location }) => {
 	const [email, setEmail] = useState('');

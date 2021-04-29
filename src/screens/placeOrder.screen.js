@@ -2,10 +2,10 @@ import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CheckoutSteps from '../checkoutSteps';
+import CheckoutSteps from '../components/checkoutSteps.component';
 import { Link } from 'react-router-dom';
-import Message from '../message';
-import { createOrder } from '../../actions/order.actions';
+import Message from '../components/message.component';
+import { createOrder } from '../actions/order.actions';
 
 const PlaceOrderScreen = ({ history }) => {
 	const cart = useSelector((state) => state.cart);

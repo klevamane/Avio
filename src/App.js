@@ -8,28 +8,28 @@ import {
 	faUser,
 } from '@fortawesome/free-solid-svg-icons';
 
-import CartScreen from './components/screens/cart.screen';
+import CartScreen from './screens/cart.screen';
 import { Container } from 'react-bootstrap';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import HomeScreen from './components/screens/HomeScreen';
-import OrderListScreen from './components/screens/orderList.screens';
-import PaymentScreen from './components/screens/payment.screen';
-import PlaceOrderScreen from './components/screens/placeOrder.screen';
-import ProductEditScreen from './components/screens/productEdit.screen';
-import ProductScreen from './components/screens/ProductScreen';
-import ProductsListScreen from './components/screens/productsList.screen';
-import ProfileScreen from './components/screens/profile.screen';
-import ShippingScreen from './components/screens/shipping.screen';
-import SignupScreen from './components/screens/signup.screen';
-import UserGetEditScreen from './components/screens/userGetEdit.screen';
-import UsersScreen from './components/screens/users.screen';
+import Footer from './components/footer.component';
+import Header from './components/header.component';
+import HomeScreen from './screens/home.screen';
+import OrderListScreen from './screens/orderList.screens';
+import PaymentScreen from './screens/payment.screen';
+import PlaceOrderScreen from './screens/placeOrder.screen';
+import ProductEditScreen from './screens/productEdit.screen';
+import ProductScreen from './screens/product.screen';
+import ProductsListScreen from './screens/productsList.screen';
+import ProfileScreen from './screens/profile.screen';
+import ShippingScreen from './screens/shipping.screen';
+import SignupScreen from './screens/signup.screen';
+import UserGetEditScreen from './screens/userGetEdit.screen';
+import UsersScreen from './screens/users.screen';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import loginScreen from './components/screens/login.screen';
+import loginScreen from './screens/login.screen';
 import logo from './logo.svg';
-import OrderScreen from './components/screens/order.screen';
+import OrderScreen from './screens/order.screen';
 
 const App = () => {
 	return (

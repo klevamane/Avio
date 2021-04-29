@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
-import Loader from '../loader';
-import Message from '../message';
-import { getAllOrders } from '../../actions/order.actions';
-import { empty } from '../../utils';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import { getAllOrders } from '../actions/order.actions';
+import { empty } from '../utils';
 
 const OrderListScreen = ({ history }) => {
 	const dispatch = useDispatch();

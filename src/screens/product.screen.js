@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import Loader from '../loader';
-import Rating from '../Rating';
-import { createProductReview, getProductDetails } from '../../actions/product';
-import Message from '../message';
-import { PRODUCT_REVIEW_CREATE_RESET } from '../../constants/product';
+import Loader from '../components/loader.component';
+import Rating from '../components/rating.component';
+import { createProductReview, getProductDetails } from '../actions/product';
+import Message from '../components/message.component';
+import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/product';
 
 const ProductScreen = ({ history, match }) => {
 	const productDetails = useSelector((state) => state.productDetails);

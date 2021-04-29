@@ -9,23 +9,19 @@ import {
 	Spinner,
 } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import {
-	deliverOrder,
-	getOrderById,
-	payOrder,
-} from '../../actions/order.actions';
+import { deliverOrder, getOrderById, payOrder } from '../actions/order.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import Loader from '../loader';
-import Message from '../message';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
 import {
 	ORDER_DELIVER_RESET,
 	ORDER_PAY_RESET,
-} from '../../constants/order.constant';
+} from '../constants/order.constant';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
-import { empty } from '../../utils';
+import { empty } from '../utils';
 
 const OrderScreen = ({ match, history }) => {
 	const dispatch = useDispatch();

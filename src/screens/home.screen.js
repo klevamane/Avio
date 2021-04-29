@@ -2,12 +2,12 @@ import { Col, Row } from 'react-bootstrap';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Loader from '../loader';
-import Message from '../message';
-import Product from '../../components/Product';
-import { listProducts as listProductsAction } from '../../actions/product';
-import Paginate from '../paginate.component';
-import ProductCarousel from '../product.carousel.component';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import Product from '../components/product.component';
+import { listProducts as listProductsAction } from '../actions/product';
+import Paginate from '../components/paginate.component';
+import ProductCarousel from '../components/product.carousel.component';
 
 const HomeScreen = ({ match }) => {
 	const dispatch = useDispatch();

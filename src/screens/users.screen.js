@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import {
 	deleteUser,
 	usersList as usersListAction,
-} from '../../actions/user.actions';
+} from '../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { LinkContainer } from 'react-router-bootstrap';
-import Loader from '../loader';
-import Message from '../message';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
 import { useState } from 'react';
 
 const UsersScreen = ({ history }) => {

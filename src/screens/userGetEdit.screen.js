@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import {
 	getAnyUser,
 	updateAnyUser as updateAnyUserAction,
-} from '../../actions/user.actions';
+} from '../actions/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Loader from '../loader';
-import Message from '../message';
-import { USER_UPDATE_ANY_DETAILS_RESET } from '../../constants/user.constants';
+import Loader from '../components/loader.component';
+import Message from '../components/message.component';
+import { USER_UPDATE_ANY_DETAILS_RESET } from '../constants/user.constants';
 
 const UserGetEditScreen = ({ history, location, match }) => {
 	const [email, setEmail] = useState('');
