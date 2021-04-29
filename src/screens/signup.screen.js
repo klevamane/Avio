@@ -6,6 +6,7 @@ import { FormContainer } from '../components/form.container.component';
 import { Link } from 'react-router-dom';
 import Message from '../components/message.component';
 import { signup } from '../actions/auth.actions';
+import Meta from '../components/meta.component';
 
 const SignupScreen = ({ history, location }) => {
 	const [email, setEmail] = useState('');
@@ -42,6 +43,11 @@ const SignupScreen = ({ history, location }) => {
 
 	return (
 		<>
+			<Meta
+				title='Login'
+				description='The best value products online'
+				keyword='tv smartphones electronics'
+			/>
 			{message ? <Message variant='danger'>{message}</Message> : ''}
 			{error ? <Message variant='danger'>{error}</Message> : ''}
 

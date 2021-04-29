@@ -56,9 +56,7 @@ const OrderListScreen = ({ history }) => {
 							<tr key={order._id}>
 								<td>{index + 1}</td>
 								<td>
-									<Link to={`/admin/products/edit/${order._id}`}>
-										{order.user._id}
-									</Link>
+									<Link to={`/order/${order._id}`}>{order.user._id}</Link>
 								</td>
 								<td>{order.shippingAddress.city}</td>
 								<td>${order.shippingPrice}</td>
