@@ -87,7 +87,7 @@ const ProductEditScreen = ({ history, location, match }) => {
 	};
 
 	const uploadFileHandler = async (e) => {
-		// since we are only uploading a singke file
+		// since we are only uploading a single file
 		// it will be the first item in the array
 		const file = e.target.files[0];
 		const formData = new FormData();
