@@ -105,7 +105,7 @@ const ProductScreen = ({ history, match }) => {
                     <Col>
                       <span
                         style={{
-                          color: product.countInStock == 0 ? 'red' : '',
+                          color: product.countInStock === 0 ? 'red' : '',
                         }}
                       >
                         {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
