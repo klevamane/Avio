@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LinkContainer } from 'react-router-bootstrap';
 import React from 'react';
 import { Route } from 'react-router';
-import SearchBox from './searchbox.component';
+import SearchBox from './searchbox';
 import { logout } from '../actions/auth.actions';
 
 const Header = () => {

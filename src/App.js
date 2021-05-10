@@ -10,7 +10,7 @@ import {
 
 import CartScreen from './screens/cart.screen';
 import { Container } from 'react-bootstrap';
-import Footer from './components/footer.component';
+import Footer from './components/footer';
 import Header from './components/header';
 import HomeScreen from './screens/home.screen';
 import OrderListScreen from './screens/orderList.screens';
